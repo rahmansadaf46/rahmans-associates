@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum LegalCategory {
+  CRIMINAL_LAW
+  CIVIL_LAW
+  FAMILY_LAW
+  PROPERTY_LAW
+  CORPORATE_COMMERCIAL_LAW
+  LABOUR_LAW
+  CONSTITUTIONAL_WRIT
+  BANKING_CHEQUE_DISHONOUR
+  CYBER_CRIME
+  LEGAL_NOTICE
+  CONTRACT_AGREEMENT
+}
+
+enum PromptType {
+  DRAFTING
+  LEGAL_RESEARCH
+  CASE_SUMMARY
+  PETITION
+  WRITTEN_STATEMENT
+  BAIL_APPLICATION
+  LEGAL_NOTICE
+  AGREEMENT_DRAFT
+  CLIENT_INTERVIEW_QUESTIONS
+}
+
+enum PromptTone {
+  FORMAL
+  DETAILED
+  CONCISE
+}
+
+enum PromptLanguage {
+  ENGLISH
+  BANGLA
+  BILINGUAL
+}
+
+model User {
+  id             String          @id @default(cuid())
+  name           String?
+  email          String          @unique
+  passwordHash   String
+  role           UserRole        @default(USER)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  promptHistories PromptHistory[]
+  favoritePrompts FavoritePrompt[]
+
+  @@index([createdAt])
+}
+
+model PromptHistory {
+  id              String          @id @default(cuid())
+  userId          String
+  inputRequest    String          @db.Text
+  category        LegalCategory
+  promptType      PromptType
+  caseTitle       String?
+  facts           String?         @db.Text
+  relevantLaw     String?         @db.Text
+  courtName       String?
+  desiredLanguage PromptLanguage  @default(ENGLISH)
+  inputLanguage   PromptLanguage  @default(ENGLISH)
+  tone            PromptTone      @default(FORMAL)
+  generatedPrompt String          @db.Text
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  favorites       FavoritePrompt[]
+
+  @@index([userId, createdAt])
+  @@index([category, promptType])
+}
+
+model FavoritePrompt {
+  id              String        @id @default(cuid())
+  userId          String
+  promptHistoryId String
+  createdAt       DateTime      @default(now())
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  promptHistory   PromptHistory @relation(fields: [promptHistoryId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, promptHistoryId])
+  @@index([promptHistoryId])
+}
+
+model PromptTemplate {
+  id          String         @id @default(cuid())
+  title       String
+  slug        String         @unique
+  description String
+  category    LegalCategory
+  promptType  PromptType
+  language    PromptLanguage @default(ENGLISH)
+  promptBody  String         @db.Text
+  tags        String[]
+  isFeatured  Boolean        @default(false)
+  isPublished Boolean        @default(true)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@index([category, promptType])
+  @@index([isFeatured, isPublished])
+}
