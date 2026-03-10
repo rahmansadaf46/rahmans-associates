@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 import { BrandHeroPanel } from "@/components/brand/brand-hero-panel";
+import { HeroSignalLine } from "@/components/home/hero-signal-line";
 import { ShimmerBarScene } from "@/components/shimmer-bar-scene";
 import { buttonStyles } from "@/components/ui/button";
 import { getServerI18n } from "@/lib/server-i18n";
@@ -22,6 +23,11 @@ export async function HeroSection() {
       description: t("home.hero.reassurance.structure.description"),
     },
   ];
+  const signalLines = [
+    t("home.hero.signalLines.first"),
+    t("home.hero.signalLines.second"),
+    t("home.hero.signalLines.third"),
+  ];
 
   return (
     <section className="relative overflow-hidden px-6 py-16 sm:py-20 xl:py-24 2xl:py-28">
@@ -41,6 +47,11 @@ export async function HeroSection() {
               <p className="max-w-2xl text-base leading-7 text-[color:var(--muted)] sm:text-lg sm:leading-8">
                 {t("home.hero.description")}
               </p>
+              <HeroSignalLine
+                key={signalLines.join("|")}
+                label={t("home.hero.signalLabel")}
+                lines={signalLines}
+              />
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link

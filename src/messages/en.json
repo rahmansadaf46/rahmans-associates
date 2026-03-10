@@ -1,12 +1,12 @@
 {
   "brand": {
-    "name": "Rahman’s Associate",
-    "shortName": "Rahman’s",
-    "tagline": "Practical AI legal help for advocates in Bangladesh",
-    "heroLabel": "AI help for advocates"
+    "name": "ChamberBondhu",
+    "shortName": "Bondhu",
+    "tagline": "The chamber companion for Bangladeshi advocates",
+    "heroLabel": "Built for Bangladesh chambers"
   },
   "meta": {
-    "rootDescription": "Rahman’s Associate is a practical AI legal support service for advocates in Bangladesh. It helps organize drafting, research, notices, petitions, agreements, and case preparation work.",
+    "rootDescription": "ChamberBondhu is a practical legal work assistant by Rahman's Associates for advocates in Bangladesh. It helps organize drafting, research, notices, petitions, agreements, and case preparation work in far less time.",
     "keywords": [
       "Bangladesh advocate assistant",
       "legal drafting help",
@@ -46,8 +46,14 @@
   },
   "home": {
     "hero": {
-      "headline": "Rahman’s Associate helps advocates turn everyday legal requests into clear AI-supported legal help for Bangladesh practice.",
-      "description": "Describe the matter the way you normally explain it. The AI assistant helps organize drafting, research, petitions, notices, agreements, and case preparation work in Bangla or English.",
+      "headline": "Finish long chamber drafting work in minutes with ChamberBondhu.",
+      "description": "Built by Rahman's Associates for Bangladeshi advocates, ChamberBondhu helps you prepare notices, petitions, agreements, and daily drafts without technical skills or complicated prompt writing.",
+      "signalLabel": "Done in a Few Minutes",
+      "signalLines": {
+        "first": "Notices ready in minutes.",
+        "second": "Bail drafts made faster.",
+        "third": "Daily chamber work, simplified."
+      },
       "generateCta": "Get AI Help",
       "browseCta": "Browse Ready Formats",
       "reassurance": {
@@ -66,9 +72,9 @@
       }
     },
     "panel": {
-      "workflowChip": "Made for Bangladesh advocates",
-      "signatureLabel": "Service overview",
-      "description": "Reliable legal help for everyday chamber work, petitions, notices, agreements, and case preparation in Bangladesh.",
+      "workflowChip": "By Rahman's Associates",
+      "signatureLabel": "About the tool",
+      "description": "Rahman's Associates built ChamberBondhu so Bangladeshi advocates can finish notices, petitions, agreements, and daily drafting work with less time and less effort.",
       "pillars": {
         "structured": {
           "title": "Clear guidance",
@@ -79,8 +85,8 @@
           "description": "Works smoothly whether the matter is explained in Bangla or English."
         },
         "workflow": {
-          "title": "Advocate support",
-          "description": "Fits notices, petitions, agreements, and research."
+          "title": "Saves chamber time",
+          "description": "Helps reduce hours of repetitive drafting into a few guided minutes."
         }
       },
       "proof": {
@@ -286,7 +292,7 @@
     "browseTemplates": "Browse Ready Formats"
   },
   "footer": {
-    "tagline": "Practical legal help for Bangladesh advocates",
+    "tagline": "A tool by Rahman's Associates for Bangladeshi advocates",
     "generator": "Drafting Help",
     "templates": "Ready Formats",
     "dashboard": "Saved Work"
