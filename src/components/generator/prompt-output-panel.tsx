@@ -104,15 +104,21 @@ export function PromptOutputPanel({
               <div className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[0.64rem] font-semibold uppercase tracking-[0.2em] text-white/50">
                 {t("generator.beginnerFriendlyLabel")}
               </div>
-              <div className="flex size-14 items-center justify-center rounded-[22px] border border-white/10 bg-[color:var(--soft-panel)] text-[color:var(--accent-strong)]">
-                <Sparkles className="size-6" />
+              <div className="flex items-start gap-4">
+                <div className="mt-5 flex size-11 items-center justify-center rounded-2xl border border-white/10 bg-[color:var(--soft-panel)] text-[color:var(--accent-strong)]">
+                  <Sparkles className="size-5" />
+                </div>
+                <div>
+                  <h3 className="mt-5 font-[family:var(--font-serif)] text-3xl text-[color:var(--text-strong)]">
+                    {t("generator.emptyTitle")}
+                  </h3>
+                  <p className="mt-3 max-w-md text-sm leading-7 text-[color:var(--muted)]">
+                    {t("generator.emptyDescription")}
+                  </p>
+                </div>
               </div>
-              <h3 className="mt-5 font-[family:var(--font-serif)] text-3xl text-[color:var(--text-strong)]">
-                {t("generator.emptyTitle")}
-              </h3>
-              <p className="mt-3 max-w-md text-sm leading-7 text-[color:var(--muted)]">
-                {t("generator.emptyDescription")}
-              </p>
+
+
               <div className="mt-6 grid gap-3">
                 {emptyTips.map((tip, index) => (
                   <div
