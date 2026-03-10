@@ -88,8 +88,8 @@ export default async function TemplateDetailsPage({
                 {t("templates.useInGenerator")}
               </Link>
             </div>
-            <div className="rounded-[26px] bg-[color:var(--brand-ink)] p-6">
-              <pre className="whitespace-pre-wrap text-sm leading-7 text-white/90">
+            <div className="rounded-[26px] border border-[color:var(--border)] bg-[color:var(--surface-strong)] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+              <pre className="whitespace-pre-wrap text-sm leading-7 text-[color:var(--text-strong)]">
                 {localizedTemplate.promptBody}
               </pre>
             </div>

@@ -104,21 +104,10 @@ export function TemplateLibrary({
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex flex-wrap gap-2">
-                {template.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full bg-[color:var(--soft-panel)] px-3 py-1 text-xs font-medium text-[color:var(--text-strong)]"
-                  >
-                    {tag}
-                  </span>
-                ))}
                 <span className="rounded-full bg-white/6 px-3 py-1 text-xs font-medium text-[color:var(--muted-strong)]">
                   {promptLanguageLabels[template.language]}
                 </span>
               </div>
-              <p className="line-clamp-4 text-sm leading-7 text-[color:var(--muted)]">
-                {template.promptBody}
-              </p>
               <div className="flex flex-wrap gap-3">
                 <CopyButton value={template.promptBody} label={t("templates.copyTemplate")} />
                 <Link

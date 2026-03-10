@@ -26,9 +26,14 @@ export function PromptOutputPanel({
   onRegenerate,
 }: PromptOutputPanelProps) {
   const t = useTranslations();
+  const emptyTips = [
+    t("generator.emptyTips.first"),
+    t("generator.emptyTips.second"),
+    t("generator.emptyTips.third"),
+  ];
 
   return (
-    <Card className="overflow-hidden border-[color:var(--border-strong)] bg-[linear-gradient(180deg,rgba(9,13,22,0.98),rgba(9,13,22,0.92)_20%,rgba(12,18,31,0.94))] xl:min-h-[calc(100vh-9.5rem)]">
+    <Card className="overflow-hidden border-[color:var(--border-strong)] bg-[linear-gradient(180deg,rgba(9,13,22,0.98),rgba(9,13,22,0.92)_20%,rgba(12,18,31,0.94))] 2xl:min-h-[calc(100vh-9.5rem)]">
       <CardHeader className="border-b border-[color:var(--border)] p-6 sm:p-8">
         <div className="flex items-start gap-4">
           <div className="mt-0.5 flex size-11 items-center justify-center rounded-2xl border border-white/10 bg-[color:var(--soft-panel)] text-[color:var(--accent-strong)]">
@@ -94,20 +99,38 @@ export function PromptOutputPanel({
             </div>
           </>
         ) : (
-          <div className="flex h-full min-h-[34rem] flex-col justify-between rounded-[28px] border border-dashed border-[color:var(--border-strong)] bg-white/[0.03] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] sm:p-8">
+          <div className="flex h-full min-h-[28rem] flex-col justify-between rounded-[28px] border border-dashed border-[color:var(--border-strong)] bg-white/[0.03] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] sm:min-h-[31rem] sm:p-8">
             <div>
+              <div className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[0.64rem] font-semibold uppercase tracking-[0.2em] text-white/50">
+                {t("generator.beginnerFriendlyLabel")}
+              </div>
               <div className="flex size-14 items-center justify-center rounded-[22px] border border-white/10 bg-[color:var(--soft-panel)] text-[color:var(--accent-strong)]">
                 <Sparkles className="size-6" />
               </div>
-              <h3 className="mt-6 font-[family:var(--font-serif)] text-3xl text-[color:var(--text-strong)]">
+              <h3 className="mt-5 font-[family:var(--font-serif)] text-3xl text-[color:var(--text-strong)]">
                 {t("generator.emptyTitle")}
               </h3>
               <p className="mt-3 max-w-md text-sm leading-7 text-[color:var(--muted)]">
                 {t("generator.emptyDescription")}
               </p>
+              <div className="mt-6 grid gap-3">
+                {emptyTips.map((tip, index) => (
+                  <div
+                    key={tip}
+                    className="rounded-[20px] border border-white/8 bg-black/20 px-4 py-4"
+                  >
+                    <p className="text-[0.64rem] uppercase tracking-[0.22em] text-white/35">
+                      {String(index + 1).padStart(2, "0")}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-[color:var(--muted-strong)]">
+                      {tip}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-3">
+            <div className="mt-8 grid gap-3 sm:grid-cols-3">
               {[t("generator.requestLabel"), t("generator.promptTypeLabel"), t("generator.outputTitle")].map(
                 (label, index) => (
                   <div
@@ -127,7 +150,10 @@ export function PromptOutputPanel({
 
             <Link
               href="/templates"
-              className={buttonStyles({ variant: "outline", className: "mt-6 self-start" })}
+              className={buttonStyles({
+                variant: "outline",
+                className: "mt-6 w-full self-start sm:w-auto",
+              })}
             >
               {t("generator.browseTemplates")}
             </Link>

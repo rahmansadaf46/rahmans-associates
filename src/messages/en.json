@@ -2,24 +2,24 @@
   "brand": {
     "name": "Rahman’s Associate",
     "shortName": "Rahman’s",
-    "tagline": "Premium legal intelligence for Bangladesh counsel",
-    "heroLabel": "Rahman’s Associate Signature System"
+    "tagline": "Practical AI legal help for advocates in Bangladesh",
+    "heroLabel": "AI help for advocates"
   },
   "meta": {
-    "rootDescription": "Rahman’s Associate is a premium legal-tech platform for advocates in Bangladesh to generate structured AI prompts for drafting, research, notices, petitions, agreements, and case preparation.",
+    "rootDescription": "Rahman’s Associate is a practical AI legal support service for advocates in Bangladesh. It helps organize drafting, research, notices, petitions, agreements, and case preparation work.",
     "keywords": [
-      "Bangladesh legal tech",
-      "AI prompt generator",
-      "advocate prompt tool",
+      "Bangladesh advocate assistant",
+      "legal drafting help",
+      "advocate support tool",
       "Bangla legal drafting",
-      "Next.js Prisma OpenAI"
+      "Bangladesh legal help"
     ],
     "loginTitle": "Login",
     "signupTitle": "Create Account",
-    "generatorTitle": "Prompt Generator",
-    "dashboardTitle": "Dashboard",
-    "templatesTitle": "Prompt Templates",
-    "templateNotFoundTitle": "Template Not Found"
+    "generatorTitle": "Drafting Help",
+    "dashboardTitle": "Saved Work",
+    "templatesTitle": "Ready Formats",
+    "templateNotFoundTitle": "Format Not Found"
   },
   "language": {
     "label": "Language",
@@ -28,11 +28,11 @@
   },
   "nav": {
     "home": "Home",
-    "generator": "Generator",
-    "templates": "Templates",
-    "dashboard": "Dashboard",
+    "generator": "Drafting Help",
+    "templates": "Ready Formats",
+    "dashboard": "Saved Work",
     "login": "Login",
-    "createAccount": "Create Account",
+    "createAccount": "Get Started",
     "signOut": "Sign Out"
   },
   "common": {
@@ -42,30 +42,44 @@
     "clipboardFailed": "Clipboard access failed."
   },
   "disclaimer": {
-    "text": "This tool is for drafting and research assistance only and does not replace professional legal advice."
+    "text": "This AI service is for drafting and research assistance only and does not replace professional legal advice."
   },
   "home": {
     "hero": {
-      "headline": "Rahman’s Associate turns plain legal requests into polished AI prompts for Bangladesh practice.",
-      "description": "A premium legal-tech workspace for advocates who need structured prompts for drafting, research, petitions, notices, agreements, and case preparation in Bangla or English.",
-      "generateCta": "Generate Legal Prompt",
-      "browseCta": "Browse Template Library"
+      "headline": "Rahman’s Associate helps advocates turn everyday legal requests into clear AI-supported legal help for Bangladesh practice.",
+      "description": "Describe the matter the way you normally explain it. The AI assistant helps organize drafting, research, petitions, notices, agreements, and case preparation work in Bangla or English.",
+      "generateCta": "Get AI Help",
+      "browseCta": "Browse Ready Formats",
+      "reassurance": {
+        "plainLanguage": {
+          "title": "Write naturally",
+          "description": "No special wording or technical language required."
+        },
+        "language": {
+          "title": "Bangla or English",
+          "description": "Describe the matter in whichever language feels easier."
+        },
+        "structure": {
+          "title": "Clearer legal structure",
+          "description": "The AI assistant organizes your request into clear working instructions."
+        }
+      }
     },
     "panel": {
-      "workflowChip": "Bangladesh counsel workflow",
-      "signatureLabel": "Brand signature",
-      "description": "Premium drafting infrastructure, refined visual clarity, and dependable AI prompt workflows for Bangladesh-based legal practice.",
+      "workflowChip": "Made for Bangladesh advocates",
+      "signatureLabel": "Service overview",
+      "description": "Reliable legal help for everyday chamber work, petitions, notices, agreements, and case preparation in Bangladesh.",
       "pillars": {
         "structured": {
-          "title": "Structured prompts",
-          "description": "Structures plain requests for legal drafting."
+          "title": "Clear guidance",
+          "description": "Uses AI to organize plain requests into usable legal instructions."
         },
         "bilingual": {
           "title": "Bangla + English",
-          "description": "Keeps bilingual intake clear and professional."
+          "description": "Works smoothly whether the matter is explained in Bangla or English."
         },
         "workflow": {
-          "title": "Advocate workflow",
+          "title": "Advocate support",
           "description": "Fits notices, petitions, agreements, and research."
         }
       },
@@ -76,36 +90,36 @@
       }
     },
     "features": {
-      "eyebrow": "Core Features",
-      "title": "A practical legal drafting assistant, not a toy demo.",
-      "description": "The MVP is designed for real advocate workflows: structured inputs, saved prompt history, reusable templates, and secure server-side AI calls.",
-      "structuredTitle": "Structured Prompt Generation",
-      "structuredDescription": "Convert a quick client instruction into a well-formed AI prompt with Bangladesh legal context, drafting sections, and placeholder logic.",
-      "libraryTitle": "Template Library",
-      "libraryDescription": "Start from curated templates for notices, petitions, agreements, bail, research, and client interviews.",
-      "workflowTitle": "Safer Legal Workflow",
-      "workflowDescription": "Server-side OpenAI integration, protected history, prompt injection resistance, and clear drafting-only disclaimers."
+      "eyebrow": "How It Helps",
+      "title": "A practical AI legal helper for real advocate work.",
+      "description": "Built for everyday chamber and casework: simple requests, saved work, ready formats, and careful drafting support.",
+      "structuredTitle": "Clear Drafting Guidance",
+      "structuredDescription": "Turn a short client instruction into organized legal help with Bangladesh context and clearly marked missing details.",
+      "libraryTitle": "Ready Formats",
+      "libraryDescription": "Start from prepared examples for notices, petitions, agreements, bail work, research, and client interviews.",
+      "workflowTitle": "Safer Support",
+      "workflowDescription": "Keeps your work organized, protected, and clearly limited to assistance."
     },
     "featuredTemplates": {
-      "eyebrow": "Featured Templates",
-      "title": "Start from battle-tested drafting prompts.",
-      "description": "The library includes seeded Bangladesh-focused prompt templates that can be copied directly or adapted inside the generator.",
-      "viewAll": "View All Templates",
-      "open": "Open Template"
+      "eyebrow": "Ready Formats",
+      "title": "Start from ready legal formats.",
+      "description": "The library includes Bangladesh-focused examples that can be copied directly or adapted inside the drafting help page.",
+      "viewAll": "View All Formats",
+      "open": "Open Format"
     },
     "demo": {
-      "eyebrow": "Demo Output",
-      "title": "See the style of prompt the generator produces.",
-      "description": "These examples show how plain-language requests become structured, context-aware prompts for Bangladesh legal drafting and research."
+      "eyebrow": "Sample Result",
+      "title": "See how the AI assistant prepares your text.",
+      "description": "These examples show how plain-language requests become clear working text for Bangladesh legal work."
     }
   },
   "auth": {
     "login": {
       "eyebrow": "{{brand}} secure workspace",
-      "pageTitle": "Access your {{brand}} drafting workspace.",
-      "pageDescription": "Login to manage previous generations, mark useful prompts as favorites, and keep a searchable drafting record for your Bangladesh legal workflow.",
+      "pageTitle": "Access your {{brand}} saved work and drafting help.",
+      "pageDescription": "Login to review saved work, mark useful items as favorites, and keep a searchable record for your Bangladesh legal practice.",
       "cardTitle": "Login",
-      "cardDescription": "Use your email and password to open the protected {{brand}} dashboard.",
+      "cardDescription": "Use your email and password to open the protected {{brand}} work area.",
       "emailLabel": "Email address",
       "emailPlaceholder": "advocate@example.com",
       "passwordLabel": "Password",
@@ -120,10 +134,10 @@
     },
     "signup": {
       "eyebrow": "Join {{brand}}",
-      "pageTitle": "Create an account to save and organize premium legal drafting prompts.",
-      "pageDescription": "The app supports guest generation, but signed-in users can keep prompt history, search past work, and mark favorites for later drafting.",
+      "pageTitle": "Create an account to save your work and keep it organized.",
+      "pageDescription": "Guest use is available, but signed-in users can save work, search earlier text, and mark favorites for later use.",
       "cardTitle": "Create Account",
-      "cardDescription": "Register for {{brand}}. Passwords are stored as secure hashes in PostgreSQL.",
+      "cardDescription": "Register for {{brand}} to save your work securely.",
       "nameLabel": "Full name",
       "namePlaceholder": "Advocate Md. Saidur Rahman",
       "emailLabel": "Email address",
@@ -141,71 +155,96 @@
     }
   },
   "generator": {
-    "pageEyebrow": "{{brand}} Prompt Lab",
-    "pageTitle": "Build a better legal AI prompt from one plain request.",
-    "pageDescription": "Select the legal category, prompt type, optional facts, and output language. The final prompt stays focused on Bangladeshi legal drafting, research, and court-ready professional structure.",
-    "cardTitle": "Prompt Generator",
-    "cardDescription": "Describe the legal task in Bangla or English. The app will turn it into a structured, Bangladesh-focused AI prompt.",
+    "pageEyebrow": "{{brand}} Drafting Help",
+    "pageTitle": "Get clear AI-assisted legal drafting help from one plain request.",
+    "pageDescription": "Choose the legal area, the kind of help you need, any optional facts, and the language. The result stays focused on Bangladeshi legal work.",
+    "pageHelperBadge": "Made for advocates",
+    "pageHelperText": "Write the matter the way you would explain it to a colleague, junior, or clerk. The AI assistant organizes it for you.",
+    "cardTitle": "AI Advocate Assistant",
+    "cardDescription": "Describe the legal task in Bangla or English. The AI assistant will turn it into clear, Bangladesh-focused working text.",
+    "beginnerFriendlyLabel": "Simple steps",
+    "beginnerFriendlyText": "No special wording is needed. Describe what you need in normal language and add only the details you already have.",
+    "sampleRequestsLabel": "Quick examples",
+    "sampleRequestsTitle": "Use an example if you are not sure how to start.",
+    "sampleRequestsDescription": "Tap any example to fill the request box instantly, then adjust the details for your matter.",
+    "accordionTitle": "Work through the drafting form step by step.",
+    "accordionDescription": "Open each section, add what you know, and move to the next part when ready.",
+    "requestStepLabel": "Step 1",
     "requestLabel": "Legal request",
     "requestPlaceholder": "Example: I want a bail application for a criminal case.",
-    "requestHelp": "Write in Bangla or English. The system preserves legal intent and structures the resulting prompt for Bangladesh practice.",
+    "requestHelp": "Write in Bangla or English. The AI assistant keeps your legal intent and prepares clearer working text for Bangladesh practice.",
+    "requestSectionDescription": "Say what document, notice, petition, or research help you need. Simple language is enough.",
     "categoryLabel": "Legal category",
-    "promptTypeLabel": "Prompt type",
+    "promptTypeLabel": "Type of help",
     "caseTitleLabel": "Case title",
     "caseTitlePlaceholder": "State vs. [Accused]",
     "courtNameLabel": "Court name",
     "courtNamePlaceholder": "Court of Sessions Judge, Dhaka",
+    "factsStepLabel": "Step 2",
     "factsLabel": "Facts of the matter",
     "factsPlaceholder": "Add the relevant chronology, allegations, client position, and important facts.",
+    "factsSectionDescription": "Add facts, case title, court name, or law only if you have them. This part is optional but helpful.",
     "lawLabel": "Relevant law / section",
     "lawPlaceholder": "Optional: mention statutes, sections, rules, or ordinances to consider.",
-    "languageLabel": "Generated prompt language",
+    "outputStepLabel": "Step 3",
+    "languageLabel": "Output language",
+    "outputSectionDescription": "Choose the output language and tone. The AI assistant will prepare clear working text for review, copy, or download.",
     "toneLabel": "Tone",
-    "submit": "Generate Prompt",
-    "loading": "Generating prompt...",
-    "shortcutsTitle": "Featured Template Shortcuts",
-    "shortcutsDescription": "Jump into a seeded template or use it as a starting point for the generator.",
-    "openTemplate": "Open template",
-    "outputTitle": "Generated Prompt",
-    "outputDescription": "Review, copy, regenerate, or download the structured prompt.",
-    "copyPrompt": "Copy Prompt",
-    "regenerate": "Regenerate",
-    "regenerateLoading": "Regenerating...",
-    "download": "Download .txt",
-    "savedMessage": "This generation was saved to your dashboard history.",
-    "unsavedMessage": "Sign-in state detected, but this prompt could not be saved.",
-    "guestLead": "Generate as a guest or",
-    "guestTail": "to save prompts automatically.",
+    "submit": "Prepare Text",
+    "loading": "Preparing...",
+    "shortcutsTitle": "Starting Formats",
+    "shortcutsDescription": "Start from a ready format or use one as the base for your work.",
+    "openTemplate": "Open format",
+    "outputTitle": "Prepared Text",
+    "outputDescription": "Review, copy, update, or download the prepared text.",
+    "copyPrompt": "Copy Text",
+    "regenerate": "Prepare Again",
+    "regenerateLoading": "Preparing again...",
+    "download": "Download Text",
+    "savedMessage": "This text was saved in your saved work.",
+    "unsavedMessage": "Sign-in state detected, but this text could not be saved.",
+    "guestLead": "Continue as a guest or",
+    "guestTail": "to save your work automatically.",
     "guestLogin": "login",
-    "emptyTitle": "Your prompt will appear here",
-    "emptyDescription": "Submit the form with your legal request in Bangla or English. The app will return a polished prompt tailored to Bangladesh legal work.",
-    "browseTemplates": "Browse Ready-Made Templates",
-    "generatedSaved": "Prompt generated and saved to dashboard.",
-    "generatedSuccess": "Prompt generated successfully.",
-    "generateFailed": "Prompt generation failed.",
-    "regenerateFailed": "Prompt regeneration failed.",
-    "downloadFilename": "bangladesh-legal-prompt.txt",
+    "emptyTitle": "Your prepared text will appear here",
+    "emptyDescription": "After you submit the form, the prepared text will appear here for review, copy, and download.",
+    "beginnerTips": {
+      "first": "Describe the legal task the way you would normally explain it.",
+      "second": "Use an example if you are unsure how to start.",
+      "third": "Add extra facts only when you already have them."
+    },
+    "emptyTips": {
+      "first": "Say what document or legal task you need.",
+      "second": "Add facts or law only if you have them.",
+      "third": "Choose the language and prepare the text."
+    },
+    "browseTemplates": "Browse Ready Formats",
+    "generatedSaved": "Text prepared and saved.",
+    "generatedSuccess": "Text prepared successfully.",
+    "generateFailed": "Could not prepare the text.",
+    "regenerateFailed": "Could not prepare the text again.",
+    "downloadFilename": "bangladesh-legal-drafting-help.txt",
     "suggestions": {
       "first": "I want a bail application for a criminal case.",
-      "second": "আমার একটি লিগ্যাল নোটিশের জন্য স্ট্রাকচার্ড AI prompt দরকার।",
-      "third": "Draft a shareholder agreement prompt for a private company in Bangladesh.",
+      "second": "I need help preparing a legal notice for my matter.",
+      "third": "Prepare drafting help for a shareholder agreement for a private company in Bangladesh.",
       "fourth": "Prepare client interview questions for a family maintenance dispute."
     }
   },
   "dashboard": {
-    "pageEyebrow": "{{brand}} Dashboard",
-    "pageTitle": "Review saved prompts, favorites, and your drafting trail.",
-    "pageDescription": "Every signed-in generation is stored in PostgreSQL so you can search previous work, reuse useful prompts, and maintain a consistent {{brand}} drafting workflow.",
-    "totalPrompts": "Total prompts",
+    "pageEyebrow": "{{brand}} Saved Work",
+    "pageTitle": "Review saved work, favorites, and recent drafting help.",
+    "pageDescription": "Every signed-in result is saved so you can search earlier work, reuse useful text, and keep your practice more consistent.",
+    "totalPrompts": "Saved items",
     "favorites": "Favorites",
     "latestActivity": "Latest activity",
-    "noPromptsYet": "No prompts yet",
-    "searchLabel": "Search prompt history",
-    "searchPlaceholder": "Search by request, category, prompt type, or content",
-    "favoritePromptsTitle": "Favorite Prompts",
-    "favoritePromptsDescription": "Quick access to your most useful drafting instructions.",
-    "promptHistoryTitle": "Prompt History",
-    "promptHistoryDescription": "Searchable history of generated prompts saved to your account.",
+    "noPromptsYet": "No saved work yet",
+    "searchLabel": "Search saved work",
+    "searchPlaceholder": "Search by request, legal category, type of help, or content",
+    "favoritePromptsTitle": "Favorite Items",
+    "favoritePromptsDescription": "Quick access to the work you use most often.",
+    "promptHistoryTitle": "Saved Work",
+    "promptHistoryDescription": "Search through the drafting help saved to your account.",
     "copy": "Copy",
     "favorite": "Favorite",
     "favorited": "Favorited",
@@ -216,41 +255,41 @@
     "favoriteFailed": "Could not update favorite status.",
     "delete": "Delete",
     "deleting": "Deleting...",
-    "deleteFailed": "Could not delete the prompt.",
-    "deleted": "Prompt deleted.",
-    "generatedOn": "Generated {{date}}",
+    "deleteFailed": "Could not delete the saved text.",
+    "deleted": "Saved text deleted.",
+    "generatedOn": "Prepared {{date}}",
     "originalRequest": "Original request",
-    "generatedPrompt": "Generated prompt",
-    "noMatchTitle": "No prompts match your search.",
-    "noMatchDescription": "Generate a new prompt or clear the search term to see your full history."
+    "generatedPrompt": "Prepared text",
+    "noMatchTitle": "No saved work matches your search.",
+    "noMatchDescription": "Prepare new text or clear the search term to see your full saved work."
   },
   "templates": {
-    "pageEyebrow": "{{brand}} Template Vault",
-    "pageTitle": "Ready-made Bangladesh legal prompt templates.",
-    "pageDescription": "Search, filter, copy, and open seeded templates covering criminal, civil, family, property, commercial, labour, writ, banking, cyber, notice, and contract workflows.",
-    "searchLabel": "Search templates",
-    "searchPlaceholder": "Search by title, category, or drafting goal",
+    "pageEyebrow": "{{brand}} Ready Formats",
+    "pageTitle": "Ready-made Bangladesh legal drafting formats.",
+    "pageDescription": "Search, filter, copy, and open prepared examples covering criminal, civil, family, property, commercial, labour, writ, banking, cyber, notice, and contract work.",
+    "searchLabel": "Search formats",
+    "searchPlaceholder": "Search by title, category, or purpose",
     "filterLabel": "Filter by category",
     "allCategories": "All categories",
-    "showing": "Showing {{visible}} of {{total}} templates.",
-    "copyTemplate": "Copy Template",
+    "showing": "Showing {{visible}} of {{total}} formats.",
+    "copyTemplate": "Copy Format",
     "openDetails": "Open Details",
-    "promptTitle": "Template Prompt",
-    "promptDescription": "Copy the template directly or use it as a starting point in the generator.",
-    "useInGenerator": "Use in Generator"
+    "promptTitle": "Format Text",
+    "promptDescription": "Copy this format directly or use it as a starting point in drafting help.",
+    "useInGenerator": "Use in Drafting Help"
   },
   "notFound": {
     "code": "404",
     "title": "The requested page was not found.",
-    "description": "The page may have moved, or the resource does not exist in the current {{brand}} workspace.",
+    "description": "The page may have moved, or it may not be available right now in {{brand}}.",
     "returnHome": "Return Home",
-    "browseTemplates": "Browse Templates"
+    "browseTemplates": "Browse Ready Formats"
   },
   "footer": {
-    "tagline": "Legal-tech drafting infrastructure for Bangladesh advocates",
-    "generator": "Prompt Generator",
-    "templates": "Templates Library",
-    "dashboard": "Dashboard"
+    "tagline": "Practical legal help for Bangladesh advocates",
+    "generator": "Drafting Help",
+    "templates": "Ready Formats",
+    "dashboard": "Saved Work"
   },
   "validation": {
     "auth": {
@@ -265,15 +304,15 @@
       "optionalMax": "Must be {{count}} characters or fewer.",
       "requestMin": "Describe the legal task in at least 10 characters.",
       "requestMax": "Request must be {{count}} characters or fewer.",
-      "invalidRequest": "Invalid prompt request."
+      "invalidRequest": "Invalid legal request."
     },
     "api": {
       "accountExists": "An account with this email already exists.",
       "accountCreated": "Account created successfully.",
       "registrationFailed": "Registration failed due to a server error.",
-      "promptUnexpected": "Prompt generation failed due to an unexpected server error.",
+      "promptUnexpected": "Could not prepare the text due to an unexpected server error.",
       "unauthorized": "Unauthorized.",
-      "promptNotFound": "Prompt not found."
+      "promptNotFound": "Saved text not found."
     }
   },
   "legalCategories": {
@@ -319,33 +358,33 @@
     },
     "contractAgreement": {
       "label": "Contract / Agreement",
-      "description": "Agreements, clauses, review prompts, and negotiation support."
+      "description": "Agreement preparation, clause review, and negotiation support."
     }
   },
-  "promptTypes": {
+    "promptTypes": {
     "drafting": {
       "label": "Drafting",
-      "description": "Generate structured drafting prompts for formal legal documents."
+      "description": "Help prepare formal legal documents in a clear structure."
     },
     "legalResearch": {
       "label": "Legal Research",
-      "description": "Frame a jurisdiction-specific legal research instruction."
+      "description": "Organize research needs with Bangladesh practice in mind."
     },
     "caseSummary": {
       "label": "Case Summary",
-      "description": "Summarize facts, issues, and procedural posture clearly."
+      "description": "Summarize the matter, key questions, and present stage clearly."
     },
     "petition": {
       "label": "Petition",
-      "description": "Create prompt structures for formal petitions and applications."
+      "description": "Help prepare formal petitions and applications."
     },
     "writtenStatement": {
       "label": "Written Statement",
-      "description": "Prepare defense-focused prompts for written statements."
+      "description": "Help prepare defense-focused written statements."
     },
     "bailApplication": {
       "label": "Bail Application",
-      "description": "Specialized prompts for bail grounds and court-ready structure."
+      "description": "Specialized help for bail grounds and court-ready structure."
     },
     "legalNotice": {
       "label": "Legal Notice",
@@ -353,25 +392,25 @@
     },
     "agreementDraft": {
       "label": "Agreement Draft",
-      "description": "Build prompts for complete agreements or clause review."
+      "description": "Help prepare complete agreements or clause review work."
     },
     "clientInterviewQuestions": {
       "label": "Client Interview Questions",
-      "description": "Prepare intake questions to surface missing legal facts."
+      "description": "Prepare client questions to surface missing legal facts."
     }
   },
   "promptLanguages": {
     "english": {
       "label": "English",
-      "description": "Produce the generated prompt fully in English."
+      "description": "The prepared text will be in English."
     },
     "bangla": {
       "label": "Bangla",
-      "description": "Produce the generated prompt fully in Bangla."
+      "description": "The prepared text will be in Bangla."
     },
     "bilingual": {
       "label": "Bilingual",
-      "description": "Combine Bangla clarity with English legal terminology where useful."
+      "description": "Use Bangla and English together where that helps legal clarity."
     }
   },
   "promptTones": {
@@ -381,7 +420,7 @@
     },
     "detailed": {
       "label": "Detailed",
-      "description": "More explicit sections, detail prompts, and placeholders."
+      "description": "Adds clearer parts, extra detail, and marked blanks for missing information."
     },
     "concise": {
       "label": "Concise",

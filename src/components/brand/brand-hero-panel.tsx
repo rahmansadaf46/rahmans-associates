@@ -62,16 +62,16 @@ export async function BrandHeroPanel() {
             </span>
           </div>
         </div>
-
-        <div className="relative mt-8 grid items-center gap-8 [grid-template-columns:repeat(auto-fit,minmax(220px,1fr))]">
-          <div className="flex justify-center">
-            <div className="relative">
-              <div className="absolute inset-8 rounded-full bg-[radial-gradient(circle,rgba(226,192,120,0.24),transparent_68%)] blur-3xl" />
-              <div className="relative rounded-[34px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_18px_48px_rgba(4,10,19,0.28)]">
-                <BrandMark size="lg" className="h-36 w-36 sm:h-40 sm:w-40" />
-              </div>
+        <div className="flex justify-center mt-10">
+          <div className="relative">
+            <div className="absolute inset-8 rounded-full bg-[radial-gradient(circle,rgba(226,192,120,0.24),transparent_68%)] blur-3xl" />
+            <div className="relative rounded-[34px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_18px_48px_rgba(4,10,19,0.28)]">
+              <BrandMark size="lg" className="h-36 w-36 sm:h-40 sm:w-40" />
             </div>
           </div>
+        </div>
+        <div className="relative mt-8 grid items-center gap-8 [grid-template-columns:repeat(auto-fit,minmax(220px,1fr))]">
+
           <div className="space-y-6">
             <div className="space-y-4">
               <p className="text-xs uppercase tracking-[0.24em] text-white/62">

@@ -34,23 +34,33 @@ export default async function GeneratorPage() {
   ];
 
   return (
-    <div className="relative overflow-hidden px-6 py-16 sm:py-20">
+    <div className="relative overflow-hidden px-6 py-14 sm:py-16 xl:py-20">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[32rem] bg-[radial-gradient(circle_at_top,rgba(198,212,255,0.12),transparent_58%)]" />
       <div className="page-shell space-y-10">
-        <section className="relative overflow-hidden rounded-[38px] border border-[color:var(--border-strong)] bg-[linear-gradient(145deg,rgba(8,11,18,0.98),rgba(11,16,27,0.94)_55%,rgba(17,28,48,0.9))] p-8 shadow-[0_40px_120px_rgba(0,0,0,0.42)] sm:p-10">
+        <section className="relative overflow-hidden rounded-[38px] border border-[color:var(--border-strong)] bg-[linear-gradient(145deg,rgba(8,11,18,0.98),rgba(11,16,27,0.94)_55%,rgba(17,28,48,0.9))] p-6 shadow-[0_40px_120px_rgba(0,0,0,0.42)] sm:p-8 xl:p-10">
           <ShimmerBarScene className="absolute inset-0 opacity-35 [mask-image:linear-gradient(135deg,rgba(0,0,0,0.12),rgba(0,0,0,1)_32%,rgba(0,0,0,0.18))]" />
-          <div className="relative grid gap-8 lg:grid-cols-2 lg:items-stretch">
-            <div className="flex h-full items-center">
-              <SectionHeading
-                eyebrow={t("generator.pageEyebrow", { brand: t("brand.name") })}
-                title={t("generator.pageTitle")}
-                description={t("generator.pageDescription")}
-              />
+          <div className="relative grid gap-8 2xl:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] 2xl:items-center">
+            <div className="flex h-full min-w-0 items-center">
+              <div className="space-y-5">
+                <SectionHeading
+                  eyebrow={t("generator.pageEyebrow", { brand: t("brand.name") })}
+                  title={t("generator.pageTitle")}
+                  description={t("generator.pageDescription")}
+                />
+                <div className="rounded-[24px] border border-white/10 bg-white/[0.04] px-5 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+                  <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-white/50">
+                    {t("generator.pageHelperBadge")}
+                  </p>
+                  <p className="mt-2 max-w-2xl text-sm leading-7 text-[color:var(--muted-strong)]">
+                    {t("generator.pageHelperText")}
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <div className="grid h-full gap-4">
+            <div className="grid h-full min-w-0 gap-4">
               <div className="rounded-[28px] border border-white/10 bg-black/20 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md">
-                <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+                <div className="grid gap-3 sm:grid-cols-3">
                   {workflowSteps.map((step, index) => {
                     const Icon = step.icon;
 
@@ -81,7 +91,7 @@ export default async function GeneratorPage() {
                 className={buttonStyles({
                   variant: "outline",
                   className:
-                    "justify-between border-white/10 bg-white/[0.03] px-5 py-4 text-left text-[color:var(--text-strong)] hover:border-[color:var(--accent-border)] hover:bg-white/8",
+                    "w-full justify-between border-white/10 bg-white/[0.03] px-5 py-4 text-left text-[color:var(--text-strong)] hover:border-[color:var(--accent-border)] hover:bg-white/8 sm:w-auto",
                 })}
               >
                 {t("generator.browseTemplates")}

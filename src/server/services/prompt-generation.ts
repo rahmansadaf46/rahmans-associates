@@ -171,7 +171,7 @@ export async function generateLegalPrompt(values: PromptRequestValues) {
 
     if (!generatedPrompt) {
       throw new AIServiceError(
-        "The AI service returned an empty prompt. Please try again.",
+        "No text was returned. Please try again.",
         502,
         "EMPTY_RESPONSE",
       );
@@ -185,7 +185,7 @@ export async function generateLegalPrompt(values: PromptRequestValues) {
     if (error instanceof OpenAI.APIError) {
       if (error.status === 401) {
         throw new AIServiceError(
-          "The OpenAI API key is invalid or unauthorized.",
+          "The writing service is not configured correctly.",
           500,
           "OPENAI_AUTH",
         );
@@ -193,14 +193,14 @@ export async function generateLegalPrompt(values: PromptRequestValues) {
 
       if (error.status === 429) {
         throw new AIServiceError(
-          "OpenAI quota or rate limit was reached. Please try again shortly.",
+          "The service is busy right now. Please try again shortly.",
           429,
           "OPENAI_RATE_LIMIT",
         );
       }
 
       throw new AIServiceError(
-        "OpenAI could not process the request right now.",
+        "The service could not process the request right now.",
         error.status ?? 502,
         "OPENAI_API",
       );
@@ -211,7 +211,7 @@ export async function generateLegalPrompt(values: PromptRequestValues) {
       (error.name === "AbortError" || error.name === "TimeoutError")
     ) {
       throw new AIServiceError(
-        "The AI request timed out. Please try again.",
+        "The request took too long. Please try again.",
         504,
         "OPENAI_TIMEOUT",
       );
@@ -222,7 +222,7 @@ export async function generateLegalPrompt(values: PromptRequestValues) {
     }
 
     throw new AIServiceError(
-      "The prompt could not be generated due to an unexpected error.",
+      "The text could not be prepared due to an unexpected error.",
       500,
       "UNEXPECTED_AI_ERROR",
     );

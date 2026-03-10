@@ -1,15 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, useTransition } from "react";
+import { type ReactNode, useEffect, useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
+  ArrowRight,
+  ChevronDown,
   FileText,
   Languages,
   Scale,
   Sparkles,
+  type LucideIcon,
 } from "lucide-react";
 import { useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
@@ -36,6 +39,7 @@ import {
   promptFormDefaults,
   type PromptRequestValues,
 } from "@/lib/validations/prompt";
+import { cn } from "@/lib/utils";
 import type { TemplateRecord } from "@/server/services/template-service";
 
 type GeneratorResponse = {
@@ -43,6 +47,122 @@ type GeneratorResponse = {
   prompt?: string;
   savedToHistory?: boolean;
 };
+
+type GeneratorSectionId = "request" | "facts" | "output";
+
+type GeneratorAccordionSectionProps = {
+  children: ReactNode;
+  description: string;
+  icon: LucideIcon;
+  id: GeneratorSectionId;
+  isOpen: boolean;
+  onToggle: () => void;
+  stepLabel: string;
+  summaryItems?: string[];
+  title: string;
+};
+
+function getSectionForField(fieldName: keyof PromptRequestValues): GeneratorSectionId {
+  switch (fieldName) {
+    case "userRequest":
+    case "category":
+    case "promptType":
+      return "request";
+    case "caseTitle":
+    case "courtName":
+    case "facts":
+    case "relevantLaw":
+      return "facts";
+    case "desiredLanguage":
+    case "tone":
+    default:
+      return "output";
+  }
+}
+
+function GeneratorAccordionSection({
+  children,
+  description,
+  icon: Icon,
+  id,
+  isOpen,
+  onToggle,
+  stepLabel,
+  summaryItems = [],
+  title,
+}: GeneratorAccordionSectionProps) {
+  return (
+    <section
+      className={cn(
+        "overflow-hidden rounded-[30px] border transition",
+        isOpen
+          ? "border-[color:var(--accent-border)] bg-white/[0.04] shadow-[0_18px_44px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.06)]"
+          : "border-[color:var(--border)] bg-black/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]",
+      )}
+    >
+      <button
+        type="button"
+        aria-controls={`${id}-panel`}
+        aria-expanded={isOpen}
+        className="flex w-full items-start justify-between gap-4 px-6 py-6 text-left sm:px-7"
+        onClick={onToggle}
+      >
+        <div className="flex min-w-0 items-start gap-4">
+          <div
+            className={cn(
+              "mt-0.5 flex size-11 shrink-0 items-center justify-center rounded-2xl border text-[color:var(--accent-strong)] transition",
+              isOpen
+                ? "border-[color:var(--accent-border)] bg-[color:var(--soft-panel-strong)]"
+                : "border-white/10 bg-[color:var(--soft-panel)]",
+            )}
+          >
+            <Icon className="size-5" />
+          </div>
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <p className="text-[0.68rem] uppercase tracking-[0.22em] text-white/45">
+                {stepLabel}
+              </p>
+              {summaryItems.map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[0.68rem] text-[color:var(--muted-strong)]"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+            <h3 className="mt-3 font-[family:var(--font-serif)] text-2xl text-[color:var(--text-strong)]">
+              {title}
+            </h3>
+            <p className="mt-2 max-w-2xl text-sm leading-7 text-[color:var(--muted)]">
+              {description}
+            </p>
+          </div>
+        </div>
+
+        <div className="pt-1">
+          <ChevronDown
+            className={cn(
+              "size-5 text-[color:var(--muted-strong)] transition-transform",
+              isOpen && "rotate-180",
+            )}
+          />
+        </div>
+      </button>
+
+      {isOpen ? (
+        <div
+          id={`${id}-panel`}
+          role="region"
+          className="border-t border-[color:var(--border)] px-6 py-6 sm:px-7 sm:py-7"
+        >
+          {children}
+        </div>
+      ) : null}
+    </section>
+  );
+}
 
 export function PromptGeneratorForm({
   featuredTemplates,
@@ -57,6 +177,7 @@ export function PromptGeneratorForm({
   const [generatedPrompt, setGeneratedPrompt] = useState("");
   const [savedToHistory, setSavedToHistory] = useState(false);
   const [lastPayload, setLastPayload] = useState<PromptRequestValues | null>(null);
+  const [activeSection, setActiveSection] = useState<GeneratorSectionId>("request");
   const legalCategoryLabels = getLegalCategoryLabels(t);
   const legalCategoryOptions = getLegalCategoryOptions(t);
   const promptLanguageOptions = getPromptLanguageOptions(t);
@@ -82,6 +203,38 @@ export function PromptGeneratorForm({
     control: form.control,
     name: "desiredLanguage",
   });
+  const selectedTone = useWatch({
+    control: form.control,
+    name: "tone",
+  });
+  const selectedCaseTitle = useWatch({
+    control: form.control,
+    name: "caseTitle",
+  });
+  const selectedCourtName = useWatch({
+    control: form.control,
+    name: "courtName",
+  });
+  const selectedFacts = useWatch({
+    control: form.control,
+    name: "facts",
+  });
+  const selectedRelevantLaw = useWatch({
+    control: form.control,
+    name: "relevantLaw",
+  });
+  const selectedCategoryOption = legalCategoryOptions.find(
+    (option) => option.value === selectedCategory,
+  );
+  const selectedPromptTypeOption = promptTypeOptions.find(
+    (option) => option.value === selectedPromptType,
+  );
+  const selectedLanguageOption = promptLanguageOptions.find(
+    (option) => option.value === selectedLanguage,
+  );
+  const selectedToneOption = promptToneOptions.find(
+    (option) => option.value === selectedTone,
+  );
   const selectionPills = [
     {
       icon: Scale,
@@ -102,6 +255,29 @@ export function PromptGeneratorForm({
         promptLanguageOptions.find((option) => option.value === selectedLanguage)?.label ??
         selectedLanguage,
     },
+  ];
+  const beginnerTips = [
+    t("generator.beginnerTips.first"),
+    t("generator.beginnerTips.second"),
+    t("generator.beginnerTips.third"),
+  ];
+  const requestSummaryItems = [
+    legalCategoryLabels[selectedCategory],
+    selectedPromptTypeOption?.label ?? selectedPromptType,
+  ];
+  const factsSummaryItems = Array.from(
+    new Set(
+      [
+        selectedCaseTitle?.trim(),
+        selectedCourtName?.trim(),
+        selectedFacts?.trim() ? t("generator.factsLabel") : "",
+        selectedRelevantLaw?.trim() ? t("generator.lawLabel") : "",
+      ].filter((value): value is string => Boolean(value)),
+    ),
+  ).slice(0, 2);
+  const outputSummaryItems = [
+    selectedLanguageOption?.label ?? selectedLanguage,
+    selectedToneOption?.label ?? selectedTone,
   ];
 
   useEffect(() => {
@@ -129,12 +305,13 @@ export function PromptGeneratorForm({
     const payload = (await response.json()) as GeneratorResponse;
 
     if (!response.ok || !payload.prompt) {
-      throw new Error(payload.error ?? "Prompt generation failed.");
+      throw new Error(payload.error ?? t("generator.generateFailed"));
     }
 
     setGeneratedPrompt(payload.prompt);
     setSavedToHistory(Boolean(payload.savedToHistory));
     setLastPayload(values);
+    setActiveSection("output");
     toast.success(
       payload.savedToHistory
         ? t("generator.generatedSaved")
@@ -142,15 +319,24 @@ export function PromptGeneratorForm({
     );
   }
 
-  const handleSubmit = form.handleSubmit((values) => {
-    startTransition(async () => {
-      try {
-        await runGeneration(values);
-      } catch (error) {
-        toast.error(error instanceof Error ? error.message : t("generator.generateFailed"));
+  const handleSubmit = form.handleSubmit(
+    (values) => {
+      startTransition(async () => {
+        try {
+          await runGeneration(values);
+        } catch (error) {
+          toast.error(error instanceof Error ? error.message : t("generator.generateFailed"));
+        }
+      });
+    },
+    (errors) => {
+      const [firstErrorField] = Object.keys(errors) as Array<keyof PromptRequestValues>;
+
+      if (firstErrorField) {
+        setActiveSection(getSectionForField(firstErrorField));
       }
-    });
-  });
+    },
+  );
 
   function handleDownload() {
     if (!generatedPrompt) {
@@ -181,106 +367,146 @@ export function PromptGeneratorForm({
   }
 
   return (
-    <div className="grid items-start gap-8 xl:grid-cols-2 xl:gap-10">
+    <div className="grid items-start gap-8 2xl:grid-cols-[minmax(0,1.38fr)_minmax(24rem,0.82fr)] 2xl:gap-10">
       <div className="space-y-6">
         <Card className="overflow-hidden border-[color:var(--border-strong)] bg-[linear-gradient(180deg,rgba(11,15,24,0.98),rgba(11,15,24,0.92)_18%,rgba(8,12,20,0.94))]">
-          <CardHeader className="border-b border-[color:var(--border)] p-0">
-            <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-2 lg:items-stretch">
-              <div className="space-y-4">
-                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[0.68rem] uppercase tracking-[0.22em] text-white/55">
-                  <Sparkles className="size-3.5 text-[color:var(--accent-strong)]" />
-                  {t("generator.cardTitle")}
-                </div>
-                <CardTitle className="text-3xl sm:text-[2.2rem]">
-                  {t("generator.cardTitle")}
-                </CardTitle>
-                <CardDescription className="max-w-2xl text-base leading-7">
-                  {t("generator.cardDescription")}
-                </CardDescription>
+          <CardContent className="grid gap-6 p-6 sm:p-8 xl:grid-cols-[minmax(0,1.12fr)_minmax(18rem,0.88fr)]">
+            <div className="min-w-0 space-y-4">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[0.68rem] uppercase tracking-[0.22em] text-white/55">
+                <Sparkles className="size-3.5 text-[color:var(--accent-strong)]" />
+                {t("generator.cardTitle")}
               </div>
+              <CardTitle className="text-3xl sm:text-[2.2rem]">
+                {t("generator.cardTitle")}
+              </CardTitle>
+              <CardDescription className="max-w-2xl text-base leading-7">
+                {t("generator.cardDescription")}
+              </CardDescription>
+              <div className="rounded-[24px] border border-white/10 bg-white/[0.03] px-5 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-white/50">
+                  {t("generator.beginnerFriendlyLabel")}
+                </p>
+                <p className="mt-2 max-w-2xl text-sm leading-7 text-[color:var(--muted)]">
+                  {t("generator.beginnerFriendlyText")}
+                </p>
+              </div>
+            </div>
 
-              <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-                {selectionPills.map((pill) => {
-                  const Icon = pill.icon;
+            <div className="grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
+              {selectionPills.map((pill) => {
+                const Icon = pill.icon;
 
-                  return (
-                    <div
-                      key={pill.label}
-                      className="rounded-[22px] border border-white/10 bg-white/[0.03] px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="flex size-10 items-center justify-center rounded-2xl border border-white/10 bg-[color:var(--soft-panel)] text-[color:var(--accent-strong)]">
-                          <Icon className="size-4" />
-                        </div>
-                        <div className="min-w-0">
-                          <p className="text-[0.64rem] uppercase tracking-[0.22em] text-white/40">
-                            {pill.label}
-                          </p>
-                          <p className="truncate text-sm font-medium text-[color:var(--text-strong)]">
-                            {pill.value}
-                          </p>
-                        </div>
+                return (
+                  <div
+                    key={pill.label}
+                    className="rounded-[22px] border border-white/10 bg-white/[0.03] px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="flex size-10 items-center justify-center rounded-2xl border border-white/10 bg-[color:var(--soft-panel)] text-[color:var(--accent-strong)]">
+                        <Icon className="size-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-[0.64rem] uppercase tracking-[0.22em] text-white/40">
+                          {pill.label}
+                        </p>
+                        <p className="truncate text-sm font-medium text-[color:var(--text-strong)]">
+                          {pill.value}
+                        </p>
                       </div>
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+                );
+              })}
             </div>
+          </CardContent>
+        </Card>
+
+        <div className="grid gap-6 xl:grid-cols-[minmax(0,1.18fr)_minmax(18rem,0.82fr)]">
+          <Card className="overflow-hidden border-[color:var(--border-strong)]">
+            <CardHeader className="border-b border-[color:var(--border)] p-6 sm:p-8">
+              <div className="flex items-start gap-4">
+                <div className="mt-0.5 flex size-11 items-center justify-center rounded-2xl border border-white/10 bg-[color:var(--soft-panel)] text-[color:var(--accent-strong)]">
+                  <Sparkles className="size-5" />
+                </div>
+                <div className="space-y-2">
+                  <div className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[0.64rem] font-semibold uppercase tracking-[0.2em] text-white/50">
+                    {t("generator.sampleRequestsLabel")}
+                  </div>
+                  <p className="text-sm font-semibold text-[color:var(--text-strong)]">
+                    {t("generator.sampleRequestsTitle")}
+                  </p>
+                  <p className="max-w-2xl text-sm leading-7 text-[color:var(--muted)]">
+                    {t("generator.sampleRequestsDescription")}
+                  </p>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-5 p-6 sm:p-8">
+              <div className="grid gap-3 sm:grid-cols-2">
+                {sampleRequestSuggestions.map((suggestion) => (
+                  <button
+                    key={suggestion}
+                    type="button"
+                    className="rounded-[22px] border border-[color:var(--border-strong)] bg-[color:var(--surface-strong)] px-4 py-4 text-left text-sm font-medium leading-6 text-[color:var(--text-strong)] shadow-[0_10px_26px_rgba(0,0,0,0.22)] transition hover:border-[color:var(--accent-border)] hover:bg-white/8 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[color:var(--focus-ring)]"
+                    onClick={() => {
+                      form.setValue("userRequest", suggestion, {
+                        shouldDirty: true,
+                        shouldTouch: true,
+                      });
+                      setActiveSection("request");
+                    }}
+                  >
+                    {suggestion}
+                  </button>
+                ))}
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-3">
+                {beginnerTips.map((tip, index) => (
+                  <div
+                    key={tip}
+                    className="rounded-[22px] border border-white/8 bg-black/20 px-4 py-4"
+                  >
+                    <p className="text-[0.64rem] uppercase tracking-[0.22em] text-white/35">
+                      {String(index + 1).padStart(2, "0")}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-[color:var(--muted-strong)]">
+                      {tip}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="overflow-hidden border-[color:var(--border-strong)] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))]">
+            <CardContent className="p-5">
+              <DisclaimerBanner />
+            </CardContent>
+          </Card>
+        </div>
+
+        <Card className="overflow-hidden border-[color:var(--border-strong)] bg-[linear-gradient(180deg,rgba(11,15,24,0.98),rgba(11,15,24,0.92)_18%,rgba(8,12,20,0.94))]">
+          <CardHeader className="border-b border-[color:var(--border)] p-6 sm:p-8">
+            <CardTitle>{t("generator.accordionTitle")}</CardTitle>
+            <CardDescription className="mt-2 max-w-3xl">
+              {t("generator.accordionDescription")}
+            </CardDescription>
           </CardHeader>
 
-          <CardContent className="space-y-8 p-6 sm:p-8">
-            <div className="grid gap-4 xl:grid-cols-2">
-              <div className="rounded-[28px] border border-[color:var(--border)] bg-white/[0.03] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
-                <div className="flex items-start gap-4">
-                  <div className="mt-0.5 flex size-11 items-center justify-center rounded-2xl border border-white/10 bg-[color:var(--soft-panel)] text-[color:var(--accent-strong)]">
-                    <Sparkles className="size-5" />
-                  </div>
-                  <div className="space-y-2">
-                    <p className="text-[0.7rem] uppercase tracking-[0.22em] text-white/45">
-                      {t("generator.requestLabel")}
-                    </p>
-                    <p className="max-w-2xl text-sm leading-7 text-[color:var(--muted)]">
-                      {t("generator.requestHelp")}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                  {sampleRequestSuggestions.map((suggestion) => (
-                    <button
-                      key={suggestion}
-                      type="button"
-                      className="rounded-[22px] border border-[color:var(--border-strong)] bg-[color:var(--surface-strong)] px-4 py-4 text-left text-sm font-medium leading-6 text-[color:var(--text-strong)] shadow-[0_10px_26px_rgba(0,0,0,0.22)] transition hover:border-[color:var(--accent-border)] hover:bg-white/8 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[color:var(--focus-ring)]"
-                      onClick={() => form.setValue("userRequest", suggestion)}
-                    >
-                      {suggestion}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-[28px] border border-[color:var(--border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
-                <DisclaimerBanner />
-              </div>
-            </div>
-
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <section className="rounded-[30px] border border-[color:var(--border)] bg-black/15 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] sm:p-7">
-                <div className="flex items-start gap-4">
-                  <div className="mt-0.5 flex size-11 items-center justify-center rounded-2xl border border-white/10 bg-[color:var(--soft-panel)] text-[color:var(--accent-strong)]">
-                    <FileText className="size-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-[family:var(--font-serif)] text-2xl text-[color:var(--text-strong)]">
-                      {t("generator.requestLabel")}
-                    </h3>
-                    <p className="mt-2 text-sm leading-7 text-[color:var(--muted)]">
-                      {t("generator.cardDescription")}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-6 space-y-6">
+          <CardContent className="p-6 sm:p-8">
+            <form className="space-y-4" onSubmit={handleSubmit}>
+              <GeneratorAccordionSection
+                id="request"
+                icon={FileText}
+                isOpen={activeSection === "request"}
+                onToggle={() => setActiveSection("request")}
+                stepLabel={t("generator.requestStepLabel")}
+                summaryItems={requestSummaryItems}
+                title={t("generator.requestLabel")}
+                description={t("generator.requestSectionDescription")}
+              >
+                <div className="space-y-6">
                   <div className="field-shell">
                     <label htmlFor="userRequest" className="field-label">
                       {t("generator.requestLabel")}
@@ -313,6 +539,9 @@ export function PromptGeneratorForm({
                           </option>
                         ))}
                       </Select>
+                      <p className="field-help">
+                        {selectedCategoryOption?.description}
+                      </p>
                     </div>
                     <div className="field-shell">
                       <label htmlFor="promptType" className="field-label">
@@ -325,27 +554,37 @@ export function PromptGeneratorForm({
                           </option>
                         ))}
                       </Select>
+                      <p className="field-help">
+                        {selectedPromptTypeOption?.description}
+                      </p>
                     </div>
                   </div>
-                </div>
-              </section>
 
-              <section className="rounded-[30px] border border-[color:var(--border)] bg-black/15 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] sm:p-7">
-                <div className="flex items-start gap-4">
-                  <div className="mt-0.5 flex size-11 items-center justify-center rounded-2xl border border-white/10 bg-[color:var(--soft-panel)] text-[color:var(--accent-strong)]">
-                    <Scale className="size-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-[family:var(--font-serif)] text-2xl text-[color:var(--text-strong)]">
-                      {t("generator.factsLabel")}
-                    </h3>
-                    <p className="mt-2 text-sm leading-7 text-[color:var(--muted)]">
-                      {t("generator.lawPlaceholder")}
-                    </p>
+                  <div className="flex justify-end">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setActiveSection("facts")}
+                    >
+                      {t("generator.factsStepLabel")} · {t("generator.factsLabel")}
+                      <ArrowRight className="size-4" />
+                    </Button>
                   </div>
                 </div>
+              </GeneratorAccordionSection>
 
-                <div className="mt-6 space-y-6">
+              <GeneratorAccordionSection
+                id="facts"
+                icon={Scale}
+                isOpen={activeSection === "facts"}
+                onToggle={() => setActiveSection("facts")}
+                stepLabel={t("generator.factsStepLabel")}
+                summaryItems={factsSummaryItems}
+                title={t("generator.factsLabel")}
+                description={t("generator.factsSectionDescription")}
+              >
+                <div className="space-y-6">
                   <div className="grid gap-6 md:grid-cols-2">
                     <div className="field-shell">
                       <label htmlFor="caseTitle" className="field-label">
@@ -392,62 +631,78 @@ export function PromptGeneratorForm({
                       {...form.register("relevantLaw")}
                     />
                   </div>
-                </div>
-              </section>
 
-              <section className="rounded-[30px] border border-[color:var(--border)] bg-black/15 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] sm:p-7">
-                <div className="flex items-start gap-4">
-                  <div className="mt-0.5 flex size-11 items-center justify-center rounded-2xl border border-white/10 bg-[color:var(--soft-panel)] text-[color:var(--accent-strong)]">
-                    <Languages className="size-5" />
+                  <div className="flex justify-end">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setActiveSection("output")}
+                    >
+                      {t("generator.outputStepLabel")} · {t("generator.languageLabel")}
+                      <ArrowRight className="size-4" />
+                    </Button>
                   </div>
-                  <div>
-                    <h3 className="font-[family:var(--font-serif)] text-2xl text-[color:var(--text-strong)]">
+                </div>
+              </GeneratorAccordionSection>
+
+              <GeneratorAccordionSection
+                id="output"
+                icon={Languages}
+                isOpen={activeSection === "output"}
+                onToggle={() => setActiveSection("output")}
+                stepLabel={t("generator.outputStepLabel")}
+                summaryItems={outputSummaryItems}
+                title={t("generator.languageLabel")}
+                description={t("generator.outputSectionDescription")}
+              >
+                <div className="grid gap-6 md:grid-cols-2">
+                  <div className="field-shell">
+                    <label htmlFor="desiredLanguage" className="field-label">
                       {t("generator.languageLabel")}
-                    </h3>
-                    <p className="mt-2 text-sm leading-7 text-[color:var(--muted)]">
-                      {t("generator.outputDescription")}
+                    </label>
+                    <Select id="desiredLanguage" {...form.register("desiredLanguage")}>
+                      {promptLanguageOptions.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </Select>
+                    <p className="field-help">
+                      {selectedLanguageOption?.description}
+                    </p>
+                  </div>
+                  <div className="field-shell">
+                    <label htmlFor="tone" className="field-label">
+                      {t("generator.toneLabel")}
+                    </label>
+                    <Select id="tone" {...form.register("tone")}>
+                      {promptToneOptions.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </Select>
+                    <p className="field-help">
+                      {selectedToneOption?.description}
                     </p>
                   </div>
                 </div>
+              </GeneratorAccordionSection>
 
-                <div className="mt-6 space-y-6">
-                  <div className="grid gap-6 md:grid-cols-2">
-                    <div className="field-shell">
-                      <label htmlFor="desiredLanguage" className="field-label">
-                        {t("generator.languageLabel")}
-                      </label>
-                      <Select id="desiredLanguage" {...form.register("desiredLanguage")}>
-                        {promptLanguageOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </Select>
-                    </div>
-                    <div className="field-shell">
-                      <label htmlFor="tone" className="field-label">
-                        {t("generator.toneLabel")}
-                      </label>
-                      <Select id="tone" {...form.register("tone")}>
-                        {promptToneOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </Select>
-                    </div>
-                  </div>
-
-                  <Button
-                    type="submit"
-                    className="w-full py-4 text-base"
-                    loading={isPending}
-                    loadingText={t("generator.loading")}
-                  >
-                    {t("generator.submit")}
-                  </Button>
-                </div>
-              </section>
+              <div className="rounded-[28px] border border-[color:var(--border)] bg-white/[0.03] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+                <p className="text-sm leading-7 text-[color:var(--muted)]">
+                  {t("generator.outputDescription")}
+                </p>
+                <Button
+                  type="submit"
+                  className="mt-4 w-full py-4 text-base"
+                  loading={isPending}
+                  loadingText={t("generator.loading")}
+                >
+                  {t("generator.submit")}
+                </Button>
+              </div>
             </form>
           </CardContent>
         </Card>
@@ -495,7 +750,7 @@ export function PromptGeneratorForm({
         </Card>
       </div>
 
-      <div className="xl:sticky xl:top-28">
+      <div className="2xl:sticky 2xl:top-28">
         <PromptOutputPanel
           generatedPrompt={generatedPrompt}
           isLoading={isPending}
