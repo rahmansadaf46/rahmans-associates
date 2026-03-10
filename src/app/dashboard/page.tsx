@@ -3,15 +3,19 @@ import { redirect } from "next/navigation";
 import { DashboardClient } from "@/components/dashboard/dashboard-client";
 import { SectionHeading } from "@/components/section-heading";
 import { auth } from "@/lib/auth";
-import { BRAND_NAME } from "@/lib/constants";
+import { getServerI18n } from "@/lib/server-i18n";
 import { getDashboardData } from "@/server/services/dashboard-service";
 
-export const metadata = {
-  title: "Dashboard",
-};
+export async function generateMetadata() {
+  const { t } = await getServerI18n();
+  return {
+    title: t("meta.dashboardTitle"),
+  };
+}
 
 export default async function DashboardPage() {
   const session = await auth();
+  const { t } = await getServerI18n();
 
   if (!session?.user) {
     redirect("/login?next=/dashboard");
@@ -23,9 +27,9 @@ export default async function DashboardPage() {
     <div className="px-6 py-16 sm:py-20">
       <div className="page-shell space-y-10">
         <SectionHeading
-          eyebrow={`${BRAND_NAME} Dashboard`}
-          title="Review saved prompts, favorites, and your drafting trail."
-          description={`Every signed-in generation is stored in PostgreSQL so you can search previous work, reuse useful prompts, and maintain a consistent ${BRAND_NAME} drafting workflow.`}
+          eyebrow={t("dashboard.pageEyebrow", { brand: t("brand.name") })}
+          title={t("dashboard.pageTitle")}
+          description={t("dashboard.pageDescription", { brand: t("brand.name") })}
         />
         <DashboardClient initialPrompts={prompts} />
       </div>

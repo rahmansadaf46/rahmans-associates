@@ -1,22 +1,35 @@
 import { z } from "zod";
 
-export const loginSchema = z.object({
-  email: z.email("Enter a valid email address.").trim().toLowerCase(),
-  password: z.string().min(8, "Password must be at least 8 characters."),
-});
+import { createTranslator, messageCatalogs, type Locale, type TranslateFn } from "@/lib/i18n";
 
-export const registerSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(2, "Name must be at least 2 characters.")
-    .max(80, "Name must be 80 characters or fewer."),
-  email: z.email("Enter a valid email address.").trim().toLowerCase(),
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters.")
-    .max(128, "Password must be 128 characters or fewer."),
-});
+export function getLoginSchema(t: TranslateFn) {
+  return z.object({
+    email: z.email(t("validation.auth.validEmail")).trim().toLowerCase(),
+    password: z.string().min(8, t("validation.auth.passwordMin")),
+  });
+}
+
+export function getRegisterSchema(t: TranslateFn) {
+  return z.object({
+    name: z
+      .string()
+      .trim()
+      .min(2, t("validation.auth.nameMin"))
+      .max(80, t("validation.auth.nameMax")),
+    email: z.email(t("validation.auth.validEmail")).trim().toLowerCase(),
+    password: z
+      .string()
+      .min(8, t("validation.auth.passwordMin"))
+      .max(128, t("validation.auth.passwordMax")),
+  });
+}
+
+function getDefaultTranslator(locale: Locale = "en") {
+  return createTranslator(locale, messageCatalogs[locale]).t;
+}
+
+export const loginSchema = getLoginSchema(getDefaultTranslator());
+export const registerSchema = getRegisterSchema(getDefaultTranslator());
 
 export type LoginValues = z.infer<typeof loginSchema>;
 export type RegisterValues = z.infer<typeof registerSchema>;
