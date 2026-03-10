@@ -421,7 +421,7 @@ export function PromptGeneratorForm({
           </CardContent>
         </Card>
 
-        <div className="grid gap-6 xl:grid-cols-[minmax(0,1.18fr)_minmax(18rem,0.82fr)]">
+        <div >
           <Card className="overflow-hidden border-[color:var(--border-strong)]">
             <CardHeader className="border-b border-[color:var(--border)] p-6 sm:p-8">
               <div className="flex items-start gap-4">
@@ -479,11 +479,7 @@ export function PromptGeneratorForm({
             </CardContent>
           </Card>
 
-          <Card className="overflow-hidden border-[color:var(--border-strong)] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))]">
-            <CardContent className="p-5">
-              <DisclaimerBanner />
-            </CardContent>
-          </Card>
+
         </div>
 
         <Card className="overflow-hidden border-[color:var(--border-strong)] bg-[linear-gradient(180deg,rgba(11,15,24,0.98),rgba(11,15,24,0.92)_18%,rgba(8,12,20,0.94))]">
@@ -707,7 +703,19 @@ export function PromptGeneratorForm({
           </CardContent>
         </Card>
 
-        <Card className="overflow-hidden border-[color:var(--border-strong)]">
+
+      </div>
+
+      <div className="2xl:sticky 2xl:top-28">
+        <PromptOutputPanel
+          generatedPrompt={generatedPrompt}
+          isLoading={isPending}
+          isAuthenticated={Boolean(session?.user)}
+          savedToHistory={savedToHistory}
+          onDownload={handleDownload}
+          onRegenerate={handleRegenerate}
+        />
+        <Card className="mt-6 overflow-hidden border-[color:var(--border-strong)]">
           <CardHeader className="border-b border-[color:var(--border)] p-6 sm:p-8">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -721,7 +729,7 @@ export function PromptGeneratorForm({
               </div>
             </div>
           </CardHeader>
-          <CardContent className="grid gap-4 p-6 sm:grid-cols-2 sm:p-8">
+          <CardContent className="grid gap-4 p-6 sm:grid-cols-1 sm:p-8">
             {localizedFeaturedTemplates.map((template) => (
               <div
                 key={template.slug}
@@ -748,17 +756,11 @@ export function PromptGeneratorForm({
             ))}
           </CardContent>
         </Card>
-      </div>
-
-      <div className="2xl:sticky 2xl:top-28">
-        <PromptOutputPanel
-          generatedPrompt={generatedPrompt}
-          isLoading={isPending}
-          isAuthenticated={Boolean(session?.user)}
-          savedToHistory={savedToHistory}
-          onDownload={handleDownload}
-          onRegenerate={handleRegenerate}
-        />
+        <Card className="mt-6 overflow-hidden border-[color:var(--border-strong)] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))]">
+          <CardContent className="p-5">
+            <DisclaimerBanner />
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
