@@ -3,17 +3,19 @@
 import Link from "next/link";
 import { useDeferredValue, useState } from "react";
 
+import { useI18n, useTranslations } from "@/components/i18n-provider";
 import { CopyButton } from "@/components/ui/copy-button";
 import { buttonStyles } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import {
-  LEGAL_CATEGORY_LABELS,
-  LEGAL_CATEGORY_OPTIONS,
-  PROMPT_LANGUAGE_LABELS,
-  PROMPT_TYPE_LABELS,
-} from "@/lib/constants";
+  getLegalCategoryLabels,
+  getLegalCategoryOptions,
+  getPromptLanguageLabels,
+  getPromptTypeLabels,
+} from "@/lib/prompt-options";
+import { localizeTemplateRecords } from "@/lib/template-localizations";
 import type { TemplateRecord } from "@/server/services/template-service";
 
 export function TemplateLibrary({
@@ -21,11 +23,18 @@ export function TemplateLibrary({
 }: {
   templates: TemplateRecord[];
 }) {
+  const t = useTranslations();
+  const { locale } = useI18n();
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<string>("ALL");
   const deferredSearch = useDeferredValue(search);
+  const legalCategoryLabels = getLegalCategoryLabels(t);
+  const legalCategoryOptions = getLegalCategoryOptions(t);
+  const promptLanguageLabels = getPromptLanguageLabels(t);
+  const promptTypeLabels = getPromptTypeLabels(t);
+  const localizedTemplates = localizeTemplateRecords(templates, locale);
 
-  const filteredTemplates = templates.filter((template) => {
+  const filteredTemplates = localizedTemplates.filter((template) => {
     const searchText = [
       template.title,
       template.description,
@@ -46,26 +55,26 @@ export function TemplateLibrary({
         <CardContent className="grid gap-4 p-6 md:grid-cols-[1fr_220px]">
           <div className="field-shell">
             <label htmlFor="template-search" className="field-label">
-              Search templates
+              {t("templates.searchLabel")}
             </label>
             <Input
               id="template-search"
-              placeholder="Search by title, category, or drafting goal"
+              placeholder={t("templates.searchPlaceholder")}
               value={search}
               onChange={(event) => setSearch(event.target.value)}
             />
           </div>
           <div className="field-shell">
             <label htmlFor="template-category" className="field-label">
-              Filter by category
+              {t("templates.filterLabel")}
             </label>
             <Select
               id="template-category"
               value={category}
               onChange={(event) => setCategory(event.target.value)}
             >
-              <option value="ALL">All categories</option>
-              {LEGAL_CATEGORY_OPTIONS.map((option) => (
+              <option value="ALL">{t("templates.allCategories")}</option>
+              {legalCategoryOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
                 </option>
@@ -76,7 +85,10 @@ export function TemplateLibrary({
       </Card>
 
       <p className="text-sm text-[color:var(--muted)]">
-        Showing {filteredTemplates.length} of {templates.length} templates.
+        {t("templates.showing", {
+          total: localizedTemplates.length,
+          visible: filteredTemplates.length,
+        })}
       </p>
 
       <div className="grid gap-6 lg:grid-cols-2">
@@ -84,8 +96,8 @@ export function TemplateLibrary({
           <Card key={template.slug}>
             <CardHeader>
               <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--muted)]">
-                {LEGAL_CATEGORY_LABELS[template.category]} •{" "}
-                {PROMPT_TYPE_LABELS[template.promptType]}
+                {legalCategoryLabels[template.category]} •{" "}
+                {promptTypeLabels[template.promptType]}
               </p>
               <CardTitle className="text-3xl">{template.title}</CardTitle>
               <CardDescription>{template.description}</CardDescription>
@@ -95,25 +107,25 @@ export function TemplateLibrary({
                 {template.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full bg-[color:var(--soft-panel)] px-3 py-1 text-xs font-medium text-[color:var(--brand-ink)]"
+                    className="rounded-full bg-[color:var(--soft-panel)] px-3 py-1 text-xs font-medium text-[color:var(--text-strong)]"
                   >
                     {tag}
                   </span>
                 ))}
-                <span className="rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-[color:var(--muted)]">
-                  {PROMPT_LANGUAGE_LABELS[template.language]}
+                <span className="rounded-full bg-white/6 px-3 py-1 text-xs font-medium text-[color:var(--muted-strong)]">
+                  {promptLanguageLabels[template.language]}
                 </span>
               </div>
               <p className="line-clamp-4 text-sm leading-7 text-[color:var(--muted)]">
                 {template.promptBody}
               </p>
               <div className="flex flex-wrap gap-3">
-                <CopyButton value={template.promptBody} label="Copy Template" />
+                <CopyButton value={template.promptBody} label={t("templates.copyTemplate")} />
                 <Link
                   href={`/templates/${template.slug}`}
                   className={buttonStyles({ variant: "outline", size: "sm" })}
                 >
-                  Open Details
+                  {t("templates.openDetails")}
                 </Link>
               </div>
             </CardContent>

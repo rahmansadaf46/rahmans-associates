@@ -1,0 +1,391 @@
+{
+  "brand": {
+    "name": "Rahman’s Associate",
+    "shortName": "Rahman’s",
+    "tagline": "বাংলাদেশের আইনজীবীদের জন্য প্রিমিয়াম লিগ্যাল ইন্টেলিজেন্স",
+    "heroLabel": "Rahman’s Associate Signature System"
+  },
+  "meta": {
+    "rootDescription": "Rahman’s Associate হলো বাংলাদেশের আইনজীবীদের জন্য একটি প্রিমিয়াম লিগ্যাল-টেক প্ল্যাটফর্ম, যেখানে ড্রাফটিং, রিসার্চ, নোটিশ, পিটিশন, এগ্রিমেন্ট ও কেস প্রস্তুতির জন্য স্ট্রাকচার্ড AI prompt তৈরি করা যায়।",
+    "keywords": [
+      "Bangladesh legal tech",
+      "AI prompt generator",
+      "advocate prompt tool",
+      "Bangla legal drafting",
+      "Next.js Prisma OpenAI"
+    ],
+    "loginTitle": "লগইন",
+    "signupTitle": "অ্যাকাউন্ট তৈরি",
+    "generatorTitle": "প্রম্পট জেনারেটর",
+    "dashboardTitle": "ড্যাশবোর্ড",
+    "templatesTitle": "প্রম্পট টেমপ্লেট",
+    "templateNotFoundTitle": "টেমপ্লেট পাওয়া যায়নি"
+  },
+  "language": {
+    "label": "ভাষা",
+    "en": "EN",
+    "bn": "বাংলা"
+  },
+  "nav": {
+    "home": "হোম",
+    "generator": "জেনারেটর",
+    "templates": "টেমপ্লেট",
+    "dashboard": "ড্যাশবোর্ড",
+    "login": "লগইন",
+    "createAccount": "অ্যাকাউন্ট তৈরি",
+    "signOut": "সাইন আউট"
+  },
+  "common": {
+    "copy": "কপি",
+    "copied": "কপি হয়েছে",
+    "copiedToClipboard": "ক্লিপবোর্ডে কপি হয়েছে।",
+    "clipboardFailed": "ক্লিপবোর্ডে কপি করা যায়নি।"
+  },
+  "disclaimer": {
+    "text": "এই টুলটি শুধুমাত্র ড্রাফটিং ও রিসার্চ সহায়তার জন্য। এটি কোনোভাবেই পেশাদার আইনি পরামর্শের বিকল্প নয়।"
+  },
+  "home": {
+    "hero": {
+      "headline": "Rahman’s Associate সাধারণ আইনি অনুরোধকে বাংলাদেশি প্র্যাকটিসের জন্য পরিশীলিত AI prompt-এ রূপ দেয়।",
+      "description": "যেসব আইনজীবী Bangla বা English-এ ড্রাফটিং, রিসার্চ, পিটিশন, নোটিশ, এগ্রিমেন্ট এবং কেস প্রস্তুতির জন্য স্ট্রাকচার্ড prompt চান, তাদের জন্য এটি একটি প্রিমিয়াম লিগ্যাল-টেক ওয়ার্কস্পেস।",
+      "generateCta": "লিগ্যাল Prompt তৈরি করুন",
+      "browseCta": "টেমপ্লেট লাইব্রেরি দেখুন"
+    },
+    "panel": {
+      "workflowChip": "বাংলাদেশি কাউন্সেল ওয়ার্কফ্লো",
+      "signatureLabel": "ব্র্যান্ড সিগনেচার",
+      "description": "প্রিমিয়াম ড্রাফটিং অবকাঠামো, পরিশীলিত ভিজ্যুয়াল ক্ল্যারিটি, এবং বাংলাদেশভিত্তিক লিগ্যাল প্র্যাকটিসের জন্য নির্ভরযোগ্য AI prompt workflow।",
+      "pillars": {
+        "structured": {
+          "title": "স্ট্রাকচার্ড Prompt",
+          "description": "সাধারণ অনুরোধকে লিগ্যাল ড্রাফটিংয়ের জন্য গুছানো করে।"
+        },
+        "bilingual": {
+          "title": "Bangla + English",
+          "description": "দ্বিভাষিক ইনটেককে পরিষ্কার ও পেশাদার রাখে।"
+        },
+        "workflow": {
+          "title": "অ্যাডভোকেট ওয়ার্কফ্লো",
+          "description": "নোটিশ, পিটিশন, এগ্রিমেন্ট ও রিসার্চের সঙ্গে মানানসই।"
+        }
+      },
+      "proof": {
+        "practiceAreas": "প্র্যাকটিস এরিয়া",
+        "workingLanguages": "কর্মভাষা",
+        "corePillars": "মূল পিলার"
+      }
+    },
+    "features": {
+      "eyebrow": "মূল ফিচার",
+      "title": "এটি বাস্তব কাজের লিগ্যাল ড্রাফটিং সহকারী, শুধু ডেমো নয়।",
+      "description": "এই MVP বাস্তব অ্যাডভোকেট workflow মাথায় রেখে তৈরি: structured input, saved prompt history, reusable template, এবং secure server-side AI call।",
+      "structuredTitle": "স্ট্রাকচার্ড প্রম্পট জেনারেশন",
+      "structuredDescription": "ক্লায়েন্টের ছোট অনুরোধকে বাংলাদেশি লিগ্যাল কনটেক্সট, ড্রাফটিং সেকশন ও placeholder logic-সহ সুগঠিত AI prompt-এ রূপান্তর করুন।",
+      "libraryTitle": "টেমপ্লেট লাইব্রেরি",
+      "libraryDescription": "নোটিশ, পিটিশন, এগ্রিমেন্ট, জামিন, রিসার্চ ও ক্লায়েন্ট ইন্টারভিউয়ের curated template দিয়ে শুরু করুন।",
+      "workflowTitle": "নিরাপদ Legal Workflow",
+      "workflowDescription": "Server-side OpenAI integration, protected history, prompt injection resistance, এবং স্পষ্ট drafting-only disclaimer।"
+    },
+    "featuredTemplates": {
+      "eyebrow": "নির্বাচিত টেমপ্লেট",
+      "title": "পরীক্ষিত drafting prompt দিয়ে শুরু করুন।",
+      "description": "লাইব্রেরিতে থাকা Bangladesh-focused template সরাসরি কপি করতে পারেন বা generator-এ ব্যবহার করে কাস্টমাইজ করতে পারেন।",
+      "viewAll": "সব টেমপ্লেট দেখুন",
+      "open": "টেমপ্লেট খুলুন"
+    },
+    "demo": {
+      "eyebrow": "ডেমো আউটপুট",
+      "title": "জেনারেটর কী ধরনের prompt তৈরি করে দেখুন।",
+      "description": "এই উদাহরণগুলো দেখায় কীভাবে সাধারণ ভাষার অনুরোধ Bangladesh legal drafting ও research-এর জন্য context-aware structured prompt-এ পরিণত হয়।"
+    }
+  },
+  "auth": {
+    "login": {
+      "eyebrow": "{{brand}} সিকিউর ওয়ার্কস্পেস",
+      "pageTitle": "{{brand}} drafting workspace-এ প্রবেশ করুন।",
+      "pageDescription": "লগইন করে আগের generation ম্যানেজ করুন, দরকারি prompt favorite করুন, এবং আপনার Bangladesh legal workflow-এর searchable drafting record সংরক্ষণ করুন।",
+      "cardTitle": "লগইন",
+      "cardDescription": "আপনার email ও password ব্যবহার করে {{brand}}-এর protected dashboard খুলুন।",
+      "emailLabel": "ইমেইল ঠিকানা",
+      "emailPlaceholder": "advocate@example.com",
+      "passwordLabel": "পাসওয়ার্ড",
+      "passwordPlaceholder": "কমপক্ষে ৮ অক্ষর",
+      "submit": "লগইন",
+      "loading": "লগইন হচ্ছে...",
+      "needAccount": "অ্যাকাউন্ট নেই?",
+      "createOne": "একটি তৈরি করুন",
+      "invalidCredentials": "ইমেইল বা পাসওয়ার্ড সঠিক নয়।",
+      "success": "সফলভাবে লগইন হয়েছে।",
+      "networkError": "নেটওয়ার্ক বা সার্ভার সমস্যার কারণে লগইন ব্যর্থ হয়েছে।"
+    },
+    "signup": {
+      "eyebrow": "{{brand}}-এ যোগ দিন",
+      "pageTitle": "প্রিমিয়াম legal drafting prompt সংরক্ষণ ও গুছিয়ে রাখতে অ্যাকাউন্ট তৈরি করুন।",
+      "pageDescription": "গেস্ট হিসেবেও generation করা যায়, তবে লগইন করা ব্যবহারকারীরা prompt history রাখতে, পুরোনো কাজ খুঁজতে এবং favorite চিহ্নিত করতে পারবেন।",
+      "cardTitle": "অ্যাকাউন্ট তৈরি",
+      "cardDescription": "{{brand}}-এর জন্য রেজিস্টার করুন। Password নিরাপদ hash হিসেবে PostgreSQL-এ সংরক্ষণ করা হয়।",
+      "nameLabel": "পূর্ণ নাম",
+      "namePlaceholder": "Advocate Md. Saidur Rahman",
+      "emailLabel": "ইমেইল ঠিকানা",
+      "emailPlaceholder": "advocate@example.com",
+      "passwordLabel": "পাসওয়ার্ড",
+      "passwordPlaceholder": "কমপক্ষে ৮ অক্ষর ব্যবহার করুন",
+      "submit": "অ্যাকাউন্ট তৈরি",
+      "loading": "অ্যাকাউন্ট তৈরি হচ্ছে...",
+      "alreadyRegistered": "ইতিমধ্যে রেজিস্টার করেছেন?",
+      "loginHere": "এখানে লগইন করুন",
+      "createdLogin": "অ্যাকাউন্ট তৈরি হয়েছে। অনুগ্রহ করে লগইন করুন।",
+      "createdSuccess": "অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে।",
+      "failed": "অ্যাকাউন্ট তৈরি ব্যর্থ হয়েছে।",
+      "networkError": "নেটওয়ার্ক বা সার্ভার সমস্যার কারণে অ্যাকাউন্ট তৈরি ব্যর্থ হয়েছে।"
+    }
+  },
+  "generator": {
+    "pageEyebrow": "{{brand}} প্রম্পট ল্যাব",
+    "pageTitle": "একটি সাধারণ অনুরোধ থেকে আরও ভালো legal AI prompt তৈরি করুন।",
+    "pageDescription": "Legal category, prompt type, optional facts ও output language নির্বাচন করুন। তৈরি হওয়া prompt বাংলাদেশি legal drafting, research এবং court-ready structure-এর ওপর ফোকাস রাখবে।",
+    "cardTitle": "প্রম্পট জেনারেটর",
+    "cardDescription": "Bangla বা English-এ legal task লিখুন। অ্যাপটি সেটিকে Bangladesh-focused structured AI prompt-এ রূপ দেবে।",
+    "requestLabel": "লিগ্যাল অনুরোধ",
+    "requestPlaceholder": "উদাহরণ: আমি একটি ক্রিমিনাল কেসের জন্য bail application চাই।",
+    "requestHelp": "Bangla বা English-এ লিখুন। সিস্টেম legal intent বজায় রেখে Bangladesh practice-এর জন্য prompt structure তৈরি করবে।",
+    "categoryLabel": "লিগ্যাল ক্যাটাগরি",
+    "promptTypeLabel": "Prompt টাইপ",
+    "caseTitleLabel": "কেস টাইটেল",
+    "caseTitlePlaceholder": "State vs. [Accused]",
+    "courtNameLabel": "কোর্টের নাম",
+    "courtNamePlaceholder": "Court of Sessions Judge, Dhaka",
+    "factsLabel": "মামলার তথ্য",
+    "factsPlaceholder": "প্রাসঙ্গিক chronology, allegation, client position এবং গুরুত্বপূর্ণ তথ্য যুক্ত করুন।",
+    "lawLabel": "প্রাসঙ্গিক আইন / ধারা",
+    "lawPlaceholder": "ঐচ্ছিক: বিবেচনার জন্য statute, section, rule বা ordinance উল্লেখ করুন।",
+    "languageLabel": "জেনারেটেড Prompt-এর ভাষা",
+    "toneLabel": "টোন",
+    "submit": "প্রম্পট তৈরি করুন",
+    "loading": "প্রম্পট তৈরি হচ্ছে...",
+    "shortcutsTitle": "নির্বাচিত টেমপ্লেট শর্টকাট",
+    "shortcutsDescription": "কোনো seeded template দিয়ে শুরু করুন বা generator-এর শুরু বিন্দু হিসেবে ব্যবহার করুন।",
+    "openTemplate": "টেমপ্লেট খুলুন",
+    "outputTitle": "জেনারেটেড প্রম্পট",
+    "outputDescription": "Structured prompt রিভিউ করুন, কপি করুন, পুনরায় তৈরি করুন বা ডাউনলোড করুন।",
+    "copyPrompt": "প্রম্পট কপি করুন",
+    "regenerate": "পুনরায় তৈরি করুন",
+    "regenerateLoading": "পুনরায় তৈরি হচ্ছে...",
+    "download": ".txt ডাউনলোড",
+    "savedMessage": "এই generation আপনার dashboard history-তে সংরক্ষিত হয়েছে।",
+    "unsavedMessage": "সাইন-ইন অবস্থা শনাক্ত হয়েছে, কিন্তু এই prompt সংরক্ষণ করা যায়নি।",
+    "guestLead": "গেস্ট হিসেবে generate করুন অথবা",
+    "guestTail": "করে prompt অটোমেটিক সংরক্ষণ করুন।",
+    "guestLogin": "লগইন",
+    "emptyTitle": "আপনার prompt এখানে দেখা যাবে",
+    "emptyDescription": "Bangla বা English-এ legal request দিয়ে form submit করুন। অ্যাপটি Bangladesh legal কাজের জন্য পরিশীলিত prompt তৈরি করবে।",
+    "browseTemplates": "রেডি-মেড টেমপ্লেট দেখুন",
+    "generatedSaved": "প্রম্পট তৈরি হয়ে dashboard-এ সংরক্ষিত হয়েছে।",
+    "generatedSuccess": "প্রম্পট সফলভাবে তৈরি হয়েছে।",
+    "generateFailed": "Prompt generation ব্যর্থ হয়েছে।",
+    "regenerateFailed": "Prompt পুনরায় তৈরি ব্যর্থ হয়েছে।",
+    "downloadFilename": "bangladesh-legal-prompt.txt",
+    "suggestions": {
+      "first": "আমি একটি ক্রিমিনাল কেসের জন্য bail application চাই।",
+      "second": "আমার একটি লিগ্যাল নোটিশের জন্য স্ট্রাকচার্ড AI prompt দরকার।",
+      "third": "বাংলাদেশে একটি private company-র জন্য shareholder agreement prompt তৈরি করুন।",
+      "fourth": "পারিবারিক maintenance dispute-এর জন্য client interview questions তৈরি করুন।"
+    }
+  },
+  "dashboard": {
+    "pageEyebrow": "{{brand}} ড্যাশবোর্ড",
+    "pageTitle": "সংরক্ষিত prompt, favorite, এবং drafting trail রিভিউ করুন।",
+    "pageDescription": "লগইন করা প্রতিটি generation PostgreSQL-এ সংরক্ষিত হয়, যাতে আপনি আগের কাজ খুঁজতে, দরকারি prompt পুনরায় ব্যবহার করতে, এবং {{brand}}-এর সঙ্গত drafting workflow বজায় রাখতে পারেন।",
+    "totalPrompts": "মোট prompt",
+    "favorites": "ফেভারিট",
+    "latestActivity": "সর্বশেষ কার্যক্রম",
+    "noPromptsYet": "এখনও কোনো prompt নেই",
+    "searchLabel": "Prompt history খুঁজুন",
+    "searchPlaceholder": "অনুরোধ, category, prompt type বা content দিয়ে খুঁজুন",
+    "favoritePromptsTitle": "ফেভারিট প্রম্পট",
+    "favoritePromptsDescription": "সবচেয়ে দরকারি drafting instruction-এ দ্রুত প্রবেশ।",
+    "promptHistoryTitle": "প্রম্পট ইতিহাস",
+    "promptHistoryDescription": "আপনার অ্যাকাউন্টে সংরক্ষিত generated prompt-এর searchable history।",
+    "copy": "কপি",
+    "favorite": "ফেভারিট করুন",
+    "favorited": "ফেভারিট করা হয়েছে",
+    "removeFavorite": "ফেভারিট থেকে সরান",
+    "updating": "আপডেট হচ্ছে...",
+    "favoriteSaved": "ফেভারিটে সংরক্ষিত হয়েছে।",
+    "favoriteRemoved": "ফেভারিট থেকে সরানো হয়েছে।",
+    "favoriteFailed": "Favorite status আপডেট করা যায়নি।",
+    "delete": "মুছুন",
+    "deleting": "মুছা হচ্ছে...",
+    "deleteFailed": "Prompt মুছে ফেলা যায়নি।",
+    "deleted": "Prompt মুছে ফেলা হয়েছে।",
+    "generatedOn": "{{date}}-এ তৈরি হয়েছে",
+    "originalRequest": "মূল অনুরোধ",
+    "generatedPrompt": "জেনারেটেড Prompt",
+    "noMatchTitle": "আপনার search-এর সাথে কোনো prompt মেলেনি।",
+    "noMatchDescription": "নতুন prompt তৈরি করুন অথবা সম্পূর্ণ history দেখতে search term মুছে দিন।"
+  },
+  "templates": {
+    "pageEyebrow": "{{brand}} টেমপ্লেট ভল্ট",
+    "pageTitle": "বাংলাদেশের legal কাজের জন্য প্রস্তুত prompt template।",
+    "pageDescription": "Criminal, civil, family, property, commercial, labour, writ, banking, cyber, notice এবং contract workflow-এর seeded template খুঁজুন, filter করুন, copy করুন ও খুলুন।",
+    "searchLabel": "Template খুঁজুন",
+    "searchPlaceholder": "Title, category বা drafting goal দিয়ে খুঁজুন",
+    "filterLabel": "ক্যাটাগরি দিয়ে filter করুন",
+    "allCategories": "সব ক্যাটাগরি",
+    "showing": "{{total}}টির মধ্যে {{visible}}টি template দেখানো হচ্ছে।",
+    "copyTemplate": "টেমপ্লেট কপি করুন",
+    "openDetails": "বিস্তারিত দেখুন",
+    "promptTitle": "টেমপ্লেট প্রম্পট",
+    "promptDescription": "Template সরাসরি কপি করুন অথবা generator-এ শুরুর ভিত্তি হিসেবে ব্যবহার করুন।",
+    "useInGenerator": "জেনারেটরে ব্যবহার করুন"
+  },
+  "notFound": {
+    "code": "404",
+    "title": "অনুরোধকৃত পেজটি পাওয়া যায়নি।",
+    "description": "পেজটি সরানো হতে পারে, অথবা বর্তমান {{brand}} workspace-এ এই resource নেই।",
+    "returnHome": "হোমে ফিরুন",
+    "browseTemplates": "টেমপ্লেট দেখুন"
+  },
+  "footer": {
+    "tagline": "বাংলাদেশের আইনজীবীদের জন্য লিগ্যাল-টেক ড্রাফটিং অবকাঠামো",
+    "generator": "প্রম্পট জেনারেটর",
+    "templates": "টেমপ্লেট লাইব্রেরি",
+    "dashboard": "ড্যাশবোর্ড"
+  },
+  "validation": {
+    "auth": {
+      "validEmail": "সঠিক ইমেইল ঠিকানা লিখুন।",
+      "passwordMin": "পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে।",
+      "passwordMax": "পাসওয়ার্ড ১২৮ অক্ষরের বেশি হতে পারবে না।",
+      "nameMin": "নাম কমপক্ষে ২ অক্ষরের হতে হবে।",
+      "nameMax": "নাম ৮০ অক্ষরের বেশি হতে পারবে না।",
+      "invalidRegistrationData": "রেজিস্ট্রেশন ডাটা সঠিক নয়।"
+    },
+    "prompt": {
+      "optionalMax": "সর্বোচ্চ {{count}} অক্ষর ব্যবহার করা যাবে।",
+      "requestMin": "কমপক্ষে ১০ অক্ষরে legal task বর্ণনা করুন।",
+      "requestMax": "অনুরোধ সর্বোচ্চ {{count}} অক্ষরের হতে হবে।",
+      "invalidRequest": "Prompt request সঠিক নয়।"
+    },
+    "api": {
+      "accountExists": "এই ইমেইল দিয়ে ইতিমধ্যে একটি অ্যাকাউন্ট আছে।",
+      "accountCreated": "অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে।",
+      "registrationFailed": "সার্ভার সমস্যার কারণে রেজিস্ট্রেশন ব্যর্থ হয়েছে।",
+      "promptUnexpected": "অপ্রত্যাশিত সার্ভার সমস্যার কারণে prompt generation ব্যর্থ হয়েছে।",
+      "unauthorized": "অননুমোদিত।",
+      "promptNotFound": "Prompt পাওয়া যায়নি।"
+    }
+  },
+  "legalCategories": {
+    "criminalLaw": {
+      "label": "ক্রিমিনাল ল",
+      "description": "জামিন, অভিযোগ, ডিফেন্স প্রস্তুতি এবং trial-stage drafting।"
+    },
+    "civilLaw": {
+      "label": "সিভিল ল",
+      "description": "Suit, plaint, written statement এবং civil procedure research।"
+    },
+    "familyLaw": {
+      "label": "ফ্যামিলি ল",
+      "description": "বিয়ে, তালাক, maintenance, guardianship এবং custody-সংক্রান্ত বিষয়।"
+    },
+    "propertyLaw": {
+      "label": "প্রপার্টি ল",
+      "description": "জমি বিরোধ, partition, title review, deed এবং possession issue।"
+    },
+    "corporateCommercialLaw": {
+      "label": "করপোরেট / কমার্শিয়াল ল",
+      "description": "Commercial contract, governance, compliance এবং business dispute।"
+    },
+    "labourLaw": {
+      "label": "লেবার ল",
+      "description": "চাকরি-সংক্রান্ত শৃঙ্খলা, service dispute এবং labour court preparation।"
+    },
+    "constitutionalWrit": {
+      "label": "সাংবিধানিক / রিট",
+      "description": "Writ petition, public law issue এবং constitutional remedy।"
+    },
+    "bankingChequeDishonour": {
+      "label": "ব্যাংকিং / চেক ডিসঅনার",
+      "description": "Cheque dishonour complaint, recovery strategy এবং banking notice।"
+    },
+    "cyberCrime": {
+      "label": "সাইবার ক্রাইম",
+      "description": "Digital offence, complaint, incident chronology এবং cyber compliance।"
+    },
+    "legalNotice": {
+      "label": "লিগ্যাল নোটিশ",
+      "description": "Demand notice, reply notice এবং pre-litigation positioning।"
+    },
+    "contractAgreement": {
+      "label": "কনট্র্যাক্ট / এগ্রিমেন্ট",
+      "description": "এগ্রিমেন্ট, clause review, prompt ও negotiation support।"
+    }
+  },
+  "promptTypes": {
+    "drafting": {
+      "label": "ড্রাফটিং",
+      "description": "Formal legal document-এর জন্য structured drafting prompt তৈরি করুন।"
+    },
+    "legalResearch": {
+      "label": "লিগ্যাল রিসার্চ",
+      "description": "Jurisdiction-specific legal research instruction ফ্রেম করুন।"
+    },
+    "caseSummary": {
+      "label": "কেস সামারি",
+      "description": "তথ্য, issue এবং procedural posture স্পষ্টভাবে সংক্ষেপ করুন।"
+    },
+    "petition": {
+      "label": "পিটিশন",
+      "description": "Formal petition ও application-এর জন্য prompt structure তৈরি করুন।"
+    },
+    "writtenStatement": {
+      "label": "রিটেন স্টেটমেন্ট",
+      "description": "রিটেন স্টেটমেন্টের জন্য প্রতিরক্ষামূলক prompt তৈরি করুন।"
+    },
+    "bailApplication": {
+      "label": "জামিন আবেদন",
+      "description": "জামিনের ground ও আদালতে উপযোগী structure-এর জন্য বিশেষায়িত prompt।"
+    },
+    "legalNotice": {
+      "label": "লিগ্যাল নোটিশ",
+      "description": "দৃঢ় কিন্তু পেশাদার pre-litigation notice draft করুন।"
+    },
+    "agreementDraft": {
+      "label": "এগ্রিমেন্ট ড্রাফট",
+      "description": "সম্পূর্ণ agreement বা clause review-এর জন্য prompt তৈরি করুন।"
+    },
+    "clientInterviewQuestions": {
+      "label": "ক্লায়েন্ট ইন্টারভিউ প্রশ্ন",
+      "description": "গুরুত্বপূর্ণ legal fact বের করতে intake question প্রস্তুত করুন।"
+    }
+  },
+  "promptLanguages": {
+    "english": {
+      "label": "ইংরেজি",
+      "description": "Generated prompt সম্পূর্ণ ইংরেজিতে তৈরি হবে।"
+    },
+    "bangla": {
+      "label": "বাংলা",
+      "description": "Generated prompt সম্পূর্ণ বাংলায় তৈরি হবে।"
+    },
+    "bilingual": {
+      "label": "দ্বিভাষিক",
+      "description": "প্রয়োজনে Bangla clarity-এর সঙ্গে English legal terminology ব্যবহার করুন।"
+    }
+  },
+  "promptTones": {
+    "formal": {
+      "label": "আনুষ্ঠানিক",
+      "description": "আদালত-উপযোগী ও প্রচলিত পেশাদার টোন।"
+    },
+    "detailed": {
+      "label": "বিস্তারিত",
+      "description": "আরও স্পষ্ট section, detail prompt এবং placeholder।"
+    },
+    "concise": {
+      "label": "সংক্ষিপ্ত",
+      "description": "মূল legal structure বজায় রেখে সংক্ষিপ্ত ও কার্যকর।"
+    }
+  }
+}

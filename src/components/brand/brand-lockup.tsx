@@ -6,13 +6,17 @@ import { BrandMark } from "@/components/brand/brand-mark";
 type BrandLockupProps = {
   size?: "sm" | "md";
   className?: string;
+  name?: string;
   showTagline?: boolean;
+  tagline?: string;
 };
 
 export function BrandLockup({
   size = "sm",
   className,
+  name = BRAND_NAME,
   showTagline = true,
+  tagline = BRAND_TAGLINE,
 }: BrandLockupProps) {
   const isSmall = size === "sm";
 
@@ -22,20 +26,20 @@ export function BrandLockup({
       <div className="min-w-0">
         <p
           className={cn(
-            "truncate font-[family:var(--font-serif)] tracking-tight text-[color:var(--brand-panel)]",
+            "truncate font-[family:var(--font-serif)] tracking-tight text-[color:var(--text-strong)]",
             isSmall ? "text-[1.75rem] leading-none" : "text-4xl leading-none",
           )}
         >
-          {BRAND_NAME}
+          {name}
         </p>
         {showTagline ? (
           <p
             className={cn(
-              "truncate uppercase tracking-[0.22em] text-[color:var(--muted-strong)]",
+              "truncate uppercase tracking-[0.22em] text-[color:var(--muted)]",
               isSmall ? "mt-1 text-[0.62rem]" : "mt-2 text-xs",
             )}
           >
-            {BRAND_TAGLINE}
+            {tagline}
           </p>
         ) : null}
       </div>

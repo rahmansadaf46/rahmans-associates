@@ -4,16 +4,17 @@ import { useDeferredValue, useState, useTransition } from "react";
 import { Heart, Search, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
+import { useTranslations } from "@/components/i18n-provider";
 import { CopyButton } from "@/components/ui/copy-button";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
-  LEGAL_CATEGORY_LABELS,
-  PROMPT_LANGUAGE_LABELS,
-  PROMPT_TONE_LABELS,
-  PROMPT_TYPE_LABELS,
-} from "@/lib/constants";
+  getLegalCategoryLabels,
+  getPromptLanguageLabels,
+  getPromptToneLabels,
+  getPromptTypeLabels,
+} from "@/lib/prompt-options";
 import { formatDateTime, truncateText } from "@/lib/utils";
 import type { DashboardPromptRecord } from "@/server/services/dashboard-service";
 
@@ -22,19 +23,24 @@ export function DashboardClient({
 }: {
   initialPrompts: DashboardPromptRecord[];
 }) {
+  const t = useTranslations();
   const [prompts, setPrompts] = useState(initialPrompts);
   const [search, setSearch] = useState("");
   const [activePromptId, setActivePromptId] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const deferredSearch = useDeferredValue(search);
+  const legalCategoryLabels = getLegalCategoryLabels(t);
+  const promptLanguageLabels = getPromptLanguageLabels(t);
+  const promptToneLabels = getPromptToneLabels(t);
+  const promptTypeLabels = getPromptTypeLabels(t);
 
   const filteredPrompts = prompts.filter((prompt) => {
     const haystack = [
       prompt.inputRequest,
       prompt.generatedPrompt,
       prompt.caseTitle ?? "",
-      LEGAL_CATEGORY_LABELS[prompt.category as keyof typeof LEGAL_CATEGORY_LABELS],
-      PROMPT_TYPE_LABELS[prompt.promptType as keyof typeof PROMPT_TYPE_LABELS],
+      legalCategoryLabels[prompt.category as keyof typeof legalCategoryLabels],
+      promptTypeLabels[prompt.promptType as keyof typeof promptTypeLabels],
     ]
       .join(" ")
       .toLowerCase();
@@ -53,16 +59,16 @@ export function DashboardClient({
         });
 
         if (!response.ok) {
-          toast.error("Could not delete the prompt.");
+          toast.error(t("dashboard.deleteFailed"));
           setActivePromptId(null);
           return;
         }
 
         setPrompts((current) => current.filter((item) => item.id !== promptId));
-        toast.success("Prompt deleted.");
+        toast.success(t("dashboard.deleted"));
         setActivePromptId(null);
       } catch {
-        toast.error("Could not delete the prompt.");
+        toast.error(t("dashboard.deleteFailed"));
         setActivePromptId(null);
       }
     });
@@ -81,7 +87,7 @@ export function DashboardClient({
           | null;
 
         if (!response.ok || typeof payload?.isFavorite !== "boolean") {
-          toast.error("Could not update favorite status.");
+          toast.error(t("dashboard.favoriteFailed"));
           setActivePromptId(null);
           return;
         }
@@ -96,11 +102,11 @@ export function DashboardClient({
           ),
         );
         toast.success(
-          nextFavorite ? "Saved to favorites." : "Removed from favorites.",
+          nextFavorite ? t("dashboard.favoriteSaved") : t("dashboard.favoriteRemoved"),
         );
         setActivePromptId(null);
       } catch {
-        toast.error("Could not update favorite status.");
+        toast.error(t("dashboard.favoriteFailed"));
         setActivePromptId(null);
       }
     });
@@ -112,7 +118,7 @@ export function DashboardClient({
         <Card>
           <CardContent className="p-6">
             <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--muted)]">
-              Total prompts
+              {t("dashboard.totalPrompts")}
             </p>
             <p className="mt-3 font-[family:var(--font-serif)] text-4xl text-[color:var(--brand-ink)]">
               {prompts.length}
@@ -122,7 +128,7 @@ export function DashboardClient({
         <Card>
           <CardContent className="p-6">
             <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--muted)]">
-              Favorites
+              {t("dashboard.favorites")}
             </p>
             <p className="mt-3 font-[family:var(--font-serif)] text-4xl text-[color:var(--brand-ink)]">
               {prompts.filter((prompt) => prompt.isFavorite).length}
@@ -132,10 +138,10 @@ export function DashboardClient({
         <Card>
           <CardContent className="p-6">
             <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--muted)]">
-              Latest activity
+              {t("dashboard.latestActivity")}
             </p>
             <p className="mt-3 text-sm leading-7 text-[color:var(--brand-ink)]">
-              {prompts[0] ? formatDateTime(prompts[0].createdAt) : "No prompts yet"}
+              {prompts[0] ? formatDateTime(prompts[0].createdAt) : t("dashboard.noPromptsYet")}
             </p>
           </CardContent>
         </Card>
@@ -145,14 +151,14 @@ export function DashboardClient({
         <CardContent className="p-6">
           <div className="field-shell">
             <label htmlFor="dashboard-search" className="field-label">
-              Search prompt history
+              {t("dashboard.searchLabel")}
             </label>
             <div className="relative">
               <Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-[color:var(--muted)]" />
               <Input
                 id="dashboard-search"
                 className="pl-11"
-                placeholder="Search by request, category, prompt type, or content"
+                placeholder={t("dashboard.searchPlaceholder")}
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
               />
@@ -164,11 +170,11 @@ export function DashboardClient({
       {favoritePrompts.length > 0 ? (
         <section className="space-y-4">
           <div>
-            <h2 className="font-[family:var(--font-serif)] text-3xl text-[color:var(--brand-ink)]">
-              Favorite Prompts
+            <h2 className="font-[family:var(--font-serif)] text-3xl text-[color:var(--text-strong)]">
+              {t("dashboard.favoritePromptsTitle")}
             </h2>
             <p className="text-sm leading-7 text-[color:var(--muted)]">
-              Quick access to your most useful drafting instructions.
+              {t("dashboard.favoritePromptsDescription")}
             </p>
           </div>
           <div className="grid gap-6 lg:grid-cols-2">
@@ -178,11 +184,11 @@ export function DashboardClient({
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--muted)]">
-                        {LEGAL_CATEGORY_LABELS[
-                          prompt.category as keyof typeof LEGAL_CATEGORY_LABELS
+                        {legalCategoryLabels[
+                          prompt.category as keyof typeof legalCategoryLabels
                         ]}
                       </p>
-                      <h3 className="mt-2 text-xl font-semibold text-[color:var(--brand-ink)]">
+                      <h3 className="mt-2 text-xl font-semibold text-[color:var(--text-strong)]">
                         {prompt.caseTitle || truncateText(prompt.inputRequest, 64)}
                       </h3>
                     </div>
@@ -192,15 +198,15 @@ export function DashboardClient({
                     {truncateText(prompt.generatedPrompt, 220)}
                   </p>
                   <div className="flex flex-wrap gap-3">
-                    <CopyButton value={prompt.generatedPrompt} label="Copy" />
+                    <CopyButton value={prompt.generatedPrompt} label={t("dashboard.copy")} />
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => handleFavorite(prompt.id)}
                       loading={isPending && activePromptId === prompt.id}
-                      loadingText="Updating..."
+                      loadingText={t("dashboard.updating")}
                     >
-                      Remove Favorite
+                      {t("dashboard.removeFavorite")}
                     </Button>
                   </div>
                 </CardContent>
@@ -212,11 +218,11 @@ export function DashboardClient({
 
       <section className="space-y-4">
         <div>
-          <h2 className="font-[family:var(--font-serif)] text-3xl text-[color:var(--brand-ink)]">
-            Prompt History
+          <h2 className="font-[family:var(--font-serif)] text-3xl text-[color:var(--text-strong)]">
+            {t("dashboard.promptHistoryTitle")}
           </h2>
           <p className="text-sm leading-7 text-[color:var(--muted)]">
-            Searchable history of generated prompts saved to your account.
+            {t("dashboard.promptHistoryDescription")}
           </p>
         </div>
 
@@ -228,68 +234,73 @@ export function DashboardClient({
                   <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                     <div className="space-y-2">
                       <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--muted)]">
-                        {LEGAL_CATEGORY_LABELS[
-                          prompt.category as keyof typeof LEGAL_CATEGORY_LABELS
+                        {legalCategoryLabels[
+                          prompt.category as keyof typeof legalCategoryLabels
                         ]}{" "}
                         •{" "}
-                        {PROMPT_TYPE_LABELS[
-                          prompt.promptType as keyof typeof PROMPT_TYPE_LABELS
+                        {promptTypeLabels[
+                          prompt.promptType as keyof typeof promptTypeLabels
                         ]}
                       </p>
-                      <h3 className="text-xl font-semibold text-[color:var(--brand-ink)]">
+                      <h3 className="text-xl font-semibold text-[color:var(--text-strong)]">
                         {prompt.caseTitle || truncateText(prompt.inputRequest, 88)}
                       </h3>
                       <p className="text-sm leading-7 text-[color:var(--muted)]">
-                        Generated {formatDateTime(prompt.createdAt)} •{" "}
-                        {PROMPT_LANGUAGE_LABELS[
-                          prompt.desiredLanguage as keyof typeof PROMPT_LANGUAGE_LABELS
+                        {t("dashboard.generatedOn", {
+                          date: formatDateTime(prompt.createdAt),
+                        })}{" "}
+                        •{" "}
+                        {promptLanguageLabels[
+                          prompt.desiredLanguage as keyof typeof promptLanguageLabels
                         ]}{" "}
                         •{" "}
-                        {PROMPT_TONE_LABELS[
-                          prompt.tone as keyof typeof PROMPT_TONE_LABELS
+                        {promptToneLabels[
+                          prompt.tone as keyof typeof promptToneLabels
                         ]}
                       </p>
                     </div>
                     <div className="flex flex-wrap gap-3">
-                      <CopyButton value={prompt.generatedPrompt} label="Copy" />
+                      <CopyButton value={prompt.generatedPrompt} label={t("dashboard.copy")} />
                       <Button
                         variant={prompt.isFavorite ? "secondary" : "outline"}
                         size="sm"
                         onClick={() => handleFavorite(prompt.id)}
                         loading={isPending && activePromptId === prompt.id}
-                        loadingText="Updating..."
+                        loadingText={t("dashboard.updating")}
                       >
                         <Heart
                           className={`size-4 ${
                             prompt.isFavorite ? "fill-current" : ""
                           }`}
                         />
-                        {prompt.isFavorite ? "Favorited" : "Favorite"}
+                        {prompt.isFavorite
+                          ? t("dashboard.favorited")
+                          : t("dashboard.favorite")}
                       </Button>
                       <Button
                         variant="danger"
                         size="sm"
                         onClick={() => handleDelete(prompt.id)}
                         loading={isPending && activePromptId === prompt.id}
-                        loadingText="Deleting..."
+                        loadingText={t("dashboard.deleting")}
                       >
                         <Trash2 className="size-4" />
-                        Delete
+                        {t("dashboard.delete")}
                       </Button>
                     </div>
                   </div>
                   <div className="grid gap-5 xl:grid-cols-2">
-                    <div className="rounded-[24px] border border-[color:var(--border)] bg-white/70 p-4">
+                    <div className="rounded-[24px] border border-[color:var(--border)] bg-white/4 p-4">
                       <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--muted)]">
-                        Original request
+                        {t("dashboard.originalRequest")}
                       </p>
-                      <p className="mt-3 text-sm leading-7 text-[color:var(--brand-ink)]">
+                      <p className="mt-3 text-sm leading-7 text-[color:var(--text-strong)]">
                         {prompt.inputRequest}
                       </p>
                     </div>
                     <div className="rounded-[24px] border border-[color:var(--border)] bg-[color:var(--brand-ink)] p-4">
                       <p className="text-xs uppercase tracking-[0.18em] text-white/65">
-                        Generated prompt
+                        {t("dashboard.generatedPrompt")}
                       </p>
                       <p className="mt-3 whitespace-pre-wrap text-sm leading-7 text-white/90">
                         {truncateText(prompt.generatedPrompt, 420)}
@@ -303,12 +314,11 @@ export function DashboardClient({
         ) : (
           <Card>
             <CardContent className="p-8 text-center">
-              <h3 className="font-[family:var(--font-serif)] text-3xl text-[color:var(--brand-ink)]">
-                No prompts match your search.
+              <h3 className="font-[family:var(--font-serif)] text-3xl text-[color:var(--text-strong)]">
+                {t("dashboard.noMatchTitle")}
               </h3>
               <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">
-                Generate a new prompt or clear the search term to see your full
-                history.
+                {t("dashboard.noMatchDescription")}
               </p>
             </CardContent>
           </Card>

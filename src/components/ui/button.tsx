@@ -7,15 +7,15 @@ type ButtonSize = "sm" | "md" | "lg" | "icon";
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "border border-[color:var(--brand-panel)] bg-[linear-gradient(135deg,var(--brand-panel),var(--brand-panel-strong))] text-[color:var(--button-primary-text)] shadow-[0_18px_40px_rgba(8,17,31,0.22)] hover:border-[color:var(--brand-panel-strong)] hover:bg-[linear-gradient(135deg,var(--brand-panel-strong),#173459)] active:translate-y-px active:shadow-[0_10px_20px_rgba(8,17,31,0.18)] disabled:border-transparent disabled:bg-[color:var(--button-disabled-bg)] disabled:text-[color:var(--button-disabled-text)] disabled:shadow-none",
+    "border border-white/10 bg-[linear-gradient(135deg,#151d30,#090d16)] text-[color:var(--button-primary-text)] shadow-[0_18px_44px_rgba(0,0,0,0.38),inset_0_1px_0_rgba(255,255,255,0.08)] hover:border-white/16 hover:brightness-110 active:translate-y-px active:brightness-95 active:shadow-[0_10px_22px_rgba(0,0,0,0.34)] disabled:border-white/6 disabled:bg-[color:var(--button-disabled-bg)] disabled:text-[color:var(--button-disabled-text)] disabled:shadow-none",
   secondary:
-    "border border-[color:var(--accent-border)] bg-[linear-gradient(135deg,var(--accent),var(--accent-strong))] text-[color:var(--button-secondary-text)] shadow-[0_14px_32px_rgba(187,145,63,0.22)] hover:border-[color:var(--accent-border-strong)] hover:brightness-[1.03] active:translate-y-px active:shadow-[0_8px_18px_rgba(187,145,63,0.18)] disabled:border-transparent disabled:bg-[color:var(--button-disabled-bg)] disabled:text-[color:var(--button-disabled-text)] disabled:shadow-none",
+    "border border-[color:var(--accent-border-strong)] bg-[linear-gradient(135deg,rgba(239,210,152,0.98),rgba(185,150,88,0.98))] text-[color:var(--button-secondary-text)] shadow-[0_18px_44px_rgba(0,0,0,0.34),inset_0_1px_0_rgba(255,255,255,0.34)] hover:border-[color:var(--accent-strong)] hover:brightness-[1.05] active:translate-y-px active:brightness-95 active:shadow-[0_10px_20px_rgba(0,0,0,0.28)] disabled:border-white/6 disabled:bg-[color:var(--button-disabled-bg)] disabled:text-[color:var(--button-disabled-text)] disabled:shadow-none",
   outline:
-    "border border-[color:var(--border-strong)] bg-[color:var(--button-outline-bg)] text-[color:var(--button-outline-text)] shadow-[0_10px_24px_rgba(12,26,51,0.08)] hover:border-[color:var(--brand-panel)] hover:bg-white hover:text-[color:var(--brand-panel)] active:translate-y-px active:bg-[color:var(--button-outline-active)] disabled:border-[color:var(--border)] disabled:bg-[color:var(--button-disabled-surface)] disabled:text-[color:var(--button-disabled-text)] disabled:shadow-none",
+    "border border-[color:var(--border-strong)] bg-[color:var(--button-outline-bg)] text-[color:var(--button-outline-text)] shadow-[0_14px_34px_rgba(0,0,0,0.22),inset_0_1px_0_rgba(255,255,255,0.06)] hover:border-white/20 hover:bg-white/8 hover:text-[color:var(--text-strong)] active:translate-y-px active:bg-[color:var(--button-outline-active)] disabled:border-white/6 disabled:bg-[color:var(--button-disabled-surface)] disabled:text-[color:var(--button-disabled-text)] disabled:shadow-none",
   ghost:
-    "border border-transparent bg-transparent text-[color:var(--button-ghost-text)] hover:bg-[color:var(--button-ghost-bg)] hover:text-[color:var(--brand-panel)] active:translate-y-px active:bg-[color:var(--button-ghost-active)] disabled:text-[color:var(--button-disabled-text)]",
+    "border border-transparent bg-transparent text-[color:var(--button-ghost-text)] hover:bg-[color:var(--button-ghost-bg)] hover:text-[color:var(--text-strong)] active:translate-y-px active:bg-[color:var(--button-ghost-active)] disabled:text-[color:var(--button-disabled-text)]",
   danger:
-    "border border-[color:var(--danger-border)] bg-[linear-gradient(135deg,var(--danger),var(--danger-strong))] text-white shadow-[0_16px_36px_rgba(150,37,37,0.22)] hover:border-[color:var(--danger-border)] hover:bg-[linear-gradient(135deg,var(--danger-strong),#7f1d1d)] active:translate-y-px active:shadow-[0_10px_20px_rgba(150,37,37,0.18)] disabled:border-transparent disabled:bg-[color:var(--button-disabled-bg)] disabled:text-[color:var(--button-disabled-text)] disabled:shadow-none",
+    "border border-[color:var(--danger-border)] bg-[linear-gradient(135deg,var(--danger),var(--danger-strong))] text-white shadow-[0_16px_36px_rgba(0,0,0,0.3)] hover:border-[color:var(--danger-border)] hover:brightness-110 active:translate-y-px active:brightness-95 active:shadow-[0_10px_20px_rgba(0,0,0,0.26)] disabled:border-white/6 disabled:bg-[color:var(--button-disabled-bg)] disabled:text-[color:var(--button-disabled-text)] disabled:shadow-none",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -35,7 +35,7 @@ export function buttonStyles({
   className?: string;
 } = {}) {
   return cn(
-    "inline-flex min-w-fit shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold leading-none tracking-[0.01em] transition duration-200 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[color:var(--focus-ring)] disabled:pointer-events-none",
+    "inline-flex min-w-fit shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold leading-none tracking-[0.01em] transition duration-200 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[color:var(--focus-ring)] disabled:pointer-events-none disabled:cursor-not-allowed",
     variantStyles[variant],
     sizeStyles[size],
     className,

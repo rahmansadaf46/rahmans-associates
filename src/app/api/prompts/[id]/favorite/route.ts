@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { getServerI18n } from "@/lib/server-i18n";
 
 type FavoriteRouteProps = {
   params: Promise<{
@@ -11,10 +12,11 @@ type FavoriteRouteProps = {
 };
 
 export async function POST(_: Request, { params }: FavoriteRouteProps) {
+  const { t } = await getServerI18n();
   const session = await auth();
 
   if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+    return NextResponse.json({ error: t("validation.api.unauthorized") }, { status: 401 });
   }
 
   const { id } = await params;
@@ -30,7 +32,7 @@ export async function POST(_: Request, { params }: FavoriteRouteProps) {
   });
 
   if (!prompt) {
-    return NextResponse.json({ error: "Prompt not found." }, { status: 404 });
+    return NextResponse.json({ error: t("validation.api.promptNotFound") }, { status: 404 });
   }
 
   const existingFavorite = await prisma.favoritePrompt.findUnique({

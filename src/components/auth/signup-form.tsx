@@ -8,17 +8,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { useTranslations } from "@/components/i18n-provider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { registerSchema, type RegisterValues } from "@/lib/validations/auth";
+import { getRegisterSchema, type RegisterValues } from "@/lib/validations/auth";
 
 export function SignupForm() {
+  const t = useTranslations();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
   const callbackUrl = searchParams.get("next") ?? "/dashboard";
   const form = useForm<RegisterValues>({
-    resolver: zodResolver(registerSchema),
+    resolver: zodResolver(getRegisterSchema(t)),
     defaultValues: {
       name: "",
       email: "",
@@ -42,7 +44,7 @@ export function SignupForm() {
           | null;
 
         if (!response.ok) {
-          toast.error(payload?.error ?? "Account creation failed.");
+          toast.error(payload?.error ?? t("auth.signup.failed"));
           return;
         }
 
@@ -54,16 +56,16 @@ export function SignupForm() {
         });
 
         if (signInResult?.error) {
-          toast.success("Account created. Please log in.");
+          toast.success(t("auth.signup.createdLogin"));
           router.push("/login");
           return;
         }
 
-        toast.success("Account created successfully.");
+        toast.success(t("auth.signup.createdSuccess"));
         router.push(signInResult?.url ?? callbackUrl);
         router.refresh();
       } catch {
-        toast.error("Account creation failed due to a network or server issue.");
+        toast.error(t("auth.signup.networkError"));
       }
     });
   });
@@ -72,11 +74,11 @@ export function SignupForm() {
     <form className="space-y-5" onSubmit={handleSubmit}>
       <div className="field-shell">
         <label htmlFor="name" className="field-label">
-          Full name
+          {t("auth.signup.nameLabel")}
         </label>
         <Input
           id="name"
-          placeholder="Advocate Md. Saidur Rahman"
+          placeholder={t("auth.signup.namePlaceholder")}
           autoComplete="name"
           {...form.register("name")}
         />
@@ -87,12 +89,12 @@ export function SignupForm() {
 
       <div className="field-shell">
         <label htmlFor="email" className="field-label">
-          Email address
+          {t("auth.signup.emailLabel")}
         </label>
         <Input
           id="email"
           type="email"
-          placeholder="advocate@example.com"
+          placeholder={t("auth.signup.emailPlaceholder")}
           autoComplete="email"
           {...form.register("email")}
         />
@@ -103,12 +105,12 @@ export function SignupForm() {
 
       <div className="field-shell">
         <label htmlFor="password" className="field-label">
-          Password
+          {t("auth.signup.passwordLabel")}
         </label>
         <Input
           id="password"
           type="password"
-          placeholder="Use at least 8 characters"
+          placeholder={t("auth.signup.passwordPlaceholder")}
           autoComplete="new-password"
           {...form.register("password")}
         />
@@ -122,15 +124,15 @@ export function SignupForm() {
         className="w-full"
         variant="secondary"
         loading={isPending}
-        loadingText="Creating account..."
+        loadingText={t("auth.signup.loading")}
       >
-        Create Account
+        {t("auth.signup.submit")}
       </Button>
 
       <p className="text-sm text-[color:var(--muted)]">
-        Already registered?{" "}
-        <Link href="/login" className="font-semibold text-[color:var(--brand-ink)]">
-          Login here
+        {t("auth.signup.alreadyRegistered")}{" "}
+        <Link href="/login" className="font-semibold text-[color:var(--text-strong)]">
+          {t("auth.signup.loginHere")}
         </Link>
       </p>
     </form>

@@ -2,42 +2,47 @@ import { redirect } from "next/navigation";
 
 import { LoginForm } from "@/components/auth/login-form";
 import { DisclaimerBanner } from "@/components/disclaimer-banner";
+import { ShimmerBarScene } from "@/components/shimmer-bar-scene";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
-import { BRAND_NAME } from "@/lib/constants";
+import { getServerI18n } from "@/lib/server-i18n";
 
-export const metadata = {
-  title: "Login",
-};
+export async function generateMetadata() {
+  const { t } = await getServerI18n();
+  return {
+    title: t("meta.loginTitle"),
+  };
+}
 
 export default async function LoginPage() {
   const session = await auth();
+  const { t } = await getServerI18n();
 
   if (session?.user) {
     redirect("/dashboard");
   }
 
   return (
-    <div className="px-6 py-16 sm:py-24">
-      <div className="page-shell grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-start">
+    <div className="relative overflow-hidden px-6 py-16 sm:py-24">
+      <ShimmerBarScene className="-z-10 opacity-45" />
+      <div className="page-shell relative grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-start">
         <div className="space-y-6">
           <p className="text-xs uppercase tracking-[0.22em] text-[color:var(--muted)]">
-            {BRAND_NAME} secure workspace
+            {t("auth.login.eyebrow", { brand: t("brand.name") })}
           </p>
-          <h1 className="font-[family:var(--font-serif)] text-5xl leading-tight text-[color:var(--brand-ink)]">
-            {`Access your ${BRAND_NAME} drafting workspace.`}
+          <h1 className="font-[family:var(--font-serif)] text-5xl leading-tight text-[color:var(--text-strong)]">
+            {t("auth.login.pageTitle", { brand: t("brand.name") })}
           </h1>
           <p className="max-w-2xl text-base leading-7 text-[color:var(--muted)]">
-            Login to manage previous generations, mark useful prompts as favorites,
-            and keep a searchable drafting record for your Bangladesh legal workflow.
+            {t("auth.login.pageDescription")}
           </p>
           <DisclaimerBanner />
         </div>
         <Card>
           <CardHeader>
-            <CardTitle>Login</CardTitle>
+            <CardTitle>{t("auth.login.cardTitle")}</CardTitle>
             <CardDescription>
-              {`Use your email and password to open the protected ${BRAND_NAME} dashboard.`}
+              {t("auth.login.cardDescription", { brand: t("brand.name") })}
             </CardDescription>
           </CardHeader>
           <CardContent>

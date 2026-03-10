@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { promptRequestSchema } from "@/lib/validations/prompt";
+import { getServerI18n } from "@/lib/server-i18n";
+import { getPromptRequestSchema } from "@/lib/validations/prompt";
 import {
   AIServiceError,
   generateLegalPrompt,
@@ -12,14 +13,15 @@ import {
 
 export async function POST(request: Request) {
   try {
+    const { t } = await getServerI18n();
     const session = await auth();
     const body = await request.json();
-    const parsed = promptRequestSchema.safeParse(body);
+    const parsed = getPromptRequestSchema(t).safeParse(body);
 
     if (!parsed.success) {
       return NextResponse.json(
         {
-          error: parsed.error.issues[0]?.message ?? "Invalid prompt request.",
+          error: parsed.error.issues[0]?.message ?? t("validation.prompt.invalidRequest"),
         },
         { status: 422 },
       );
@@ -55,7 +57,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(
       {
-        error: "Prompt generation failed due to an unexpected server error.",
+        error: (await getServerI18n()).t("validation.api.promptUnexpected"),
       },
       { status: 500 },
     );

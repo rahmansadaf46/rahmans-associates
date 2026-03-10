@@ -11,10 +11,10 @@ type Option<T extends string> = {
   description: string;
 };
 
-export const BRAND_NAME = "Rahman's Associate";
-export const BRAND_SHORT_NAME = "Rahman's";
+export const BRAND_NAME = "Rahman’s Associate";
+export const BRAND_SHORT_NAME = "Rahman’s";
 export const BRAND_TAGLINE = "Premium legal intelligence for Bangladesh counsel";
-export const BRAND_HERO_LABEL = "Rahman's Associate Signature System";
+export const BRAND_HERO_LABEL = "Rahman’s Associate Signature System";
 
 export const DISCLAIMER_TEXT =
   "This tool is for drafting and research assistance only and does not replace professional legal advice.";

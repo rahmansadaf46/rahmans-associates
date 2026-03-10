@@ -20,7 +20,7 @@ export function SectionHeading({
         {eyebrow}
       </Badge>
       <div className="space-y-3">
-        <h2 className="font-[family:var(--font-serif)] text-4xl leading-tight text-[color:var(--brand-ink)] sm:text-5xl">
+        <h2 className="font-[family:var(--font-serif)] text-4xl leading-tight text-[color:var(--text-strong)] sm:text-5xl">
           {title}
         </h2>
         <p className="max-w-2xl text-base leading-7 text-[color:var(--muted)] sm:text-lg">

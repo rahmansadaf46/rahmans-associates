@@ -6,34 +6,45 @@ import {
 } from "@prisma/client";
 import { z } from "zod";
 
+import { createTranslator, messageCatalogs, type Locale, type TranslateFn } from "@/lib/i18n";
 import { MAX_INPUT_LENGTHS } from "@/lib/constants";
 
-const optionalText = (maxLength: number) =>
+const optionalText = (maxLength: number, t: TranslateFn) =>
   z
     .string()
     .trim()
-    .max(maxLength, `Must be ${maxLength} characters or fewer.`)
+    .max(maxLength, t("validation.prompt.optionalMax", { count: maxLength }))
     .optional()
     .or(z.literal(""));
 
-export const promptRequestSchema = z.object({
-  userRequest: z
-    .string()
-    .trim()
-    .min(10, "Describe the legal task in at least 10 characters.")
-    .max(
-      MAX_INPUT_LENGTHS.userRequest,
-      `Request must be ${MAX_INPUT_LENGTHS.userRequest} characters or fewer.`,
-    ),
-  category: z.nativeEnum(LegalCategory),
-  promptType: z.nativeEnum(PromptType),
-  caseTitle: optionalText(MAX_INPUT_LENGTHS.caseTitle),
-  facts: optionalText(MAX_INPUT_LENGTHS.facts),
-  relevantLaw: optionalText(MAX_INPUT_LENGTHS.relevantLaw),
-  courtName: optionalText(MAX_INPUT_LENGTHS.courtName),
-  desiredLanguage: z.nativeEnum(PromptLanguage),
-  tone: z.nativeEnum(PromptTone),
-});
+export function getPromptRequestSchema(t: TranslateFn) {
+  return z.object({
+    userRequest: z
+      .string()
+      .trim()
+      .min(10, t("validation.prompt.requestMin"))
+      .max(
+        MAX_INPUT_LENGTHS.userRequest,
+        t("validation.prompt.requestMax", {
+          count: MAX_INPUT_LENGTHS.userRequest,
+        }),
+      ),
+    category: z.nativeEnum(LegalCategory),
+    promptType: z.nativeEnum(PromptType),
+    caseTitle: optionalText(MAX_INPUT_LENGTHS.caseTitle, t),
+    facts: optionalText(MAX_INPUT_LENGTHS.facts, t),
+    relevantLaw: optionalText(MAX_INPUT_LENGTHS.relevantLaw, t),
+    courtName: optionalText(MAX_INPUT_LENGTHS.courtName, t),
+    desiredLanguage: z.nativeEnum(PromptLanguage),
+    tone: z.nativeEnum(PromptTone),
+  });
+}
+
+function getDefaultTranslator(locale: Locale = "en") {
+  return createTranslator(locale, messageCatalogs[locale]).t;
+}
+
+export const promptRequestSchema = getPromptRequestSchema(getDefaultTranslator());
 
 export type PromptRequestValues = z.infer<typeof promptRequestSchema>;
 

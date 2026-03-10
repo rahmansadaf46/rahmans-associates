@@ -8,17 +8,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { useTranslations } from "@/components/i18n-provider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { loginSchema, type LoginValues } from "@/lib/validations/auth";
+import { getLoginSchema, type LoginValues } from "@/lib/validations/auth";
 
 export function LoginForm() {
+  const t = useTranslations();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
   const callbackUrl = searchParams.get("next") ?? "/dashboard";
   const form = useForm<LoginValues>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(getLoginSchema(t)),
     defaultValues: {
       email: "",
       password: "",
@@ -35,15 +37,15 @@ export function LoginForm() {
         });
 
         if (result?.error) {
-          toast.error("Invalid email or password.");
+          toast.error(t("auth.login.invalidCredentials"));
           return;
         }
 
-        toast.success("Logged in successfully.");
+        toast.success(t("auth.login.success"));
         router.push(result?.url ?? callbackUrl);
         router.refresh();
       } catch {
-        toast.error("Login failed due to a network or server issue.");
+        toast.error(t("auth.login.networkError"));
       }
     });
   });
@@ -52,12 +54,12 @@ export function LoginForm() {
     <form className="space-y-5" onSubmit={handleSubmit}>
       <div className="field-shell">
         <label htmlFor="email" className="field-label">
-          Email address
+          {t("auth.login.emailLabel")}
         </label>
         <Input
           id="email"
           type="email"
-          placeholder="advocate@example.com"
+          placeholder={t("auth.login.emailPlaceholder")}
           autoComplete="email"
           {...form.register("email")}
         />
@@ -68,12 +70,12 @@ export function LoginForm() {
 
       <div className="field-shell">
         <label htmlFor="password" className="field-label">
-          Password
+          {t("auth.login.passwordLabel")}
         </label>
         <Input
           id="password"
           type="password"
-          placeholder="At least 8 characters"
+          placeholder={t("auth.login.passwordPlaceholder")}
           autoComplete="current-password"
           {...form.register("password")}
         />
@@ -82,14 +84,19 @@ export function LoginForm() {
         ) : null}
       </div>
 
-      <Button type="submit" className="w-full" loading={isPending} loadingText="Signing in...">
-        Login
+      <Button
+        type="submit"
+        className="w-full"
+        loading={isPending}
+        loadingText={t("auth.login.loading")}
+      >
+        {t("auth.login.submit")}
       </Button>
 
       <p className="text-sm text-[color:var(--muted)]">
-        Need an account?{" "}
-        <Link href="/signup" className="font-semibold text-[color:var(--brand-ink)]">
-          Create one
+        {t("auth.login.needAccount")}{" "}
+        <Link href="/signup" className="font-semibold text-[color:var(--text-strong)]">
+          {t("auth.login.createOne")}
         </Link>
       </p>
     </form>

@@ -1,198 +1,339 @@
-# Rahman's Associate
+# Rahman’s Associate ⚖️
 
-Production-ready legal-tech MVP built with Next.js App Router, TypeScript, Tailwind CSS, Prisma, PostgreSQL, NextAuth credentials auth, Zod, and the OpenAI API.
+### Open Source AI Legal Prompt Platform for Bangladesh
 
-## What This App Does
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Open Source](https://img.shields.io/badge/Open%20Source-Yes-brightgreen)
+![Built With](https://img.shields.io/badge/Built%20With-Next.js-black)
+![AI Powered](https://img.shields.io/badge/AI-OpenAI-orange)
+![Contributions](https://img.shields.io/badge/contributions-welcome-brightgreen)
+![Status](https://img.shields.io/badge/status-active-development-purple)
 
-- Generates structured AI prompts for Bangladesh legal drafting and research workflows.
-- Accepts Bangla or English input and preserves legal intent.
-- Supports saved prompt history, favorites, and a searchable prompt library.
-- Seeds 21 Bangladesh-focused prompt templates.
-- Uses OpenAI server-side only through `OPENAI_API_KEY`.
-- Includes a clear drafting-only disclaimer and prompt-injection resistance.
+**Rahman’s Associate** is an **open-source legal AI platform** designed to help advocates, law students, and legal researchers generate **structured prompts for AI-assisted legal drafting, research, and case preparation**.
 
-## Core Features
+The platform is designed specifically with **Bangladesh's legal ecosystem in mind**, supporting **both English and Bangla interfaces** to improve accessibility for legal professionals.
 
-- Home page with hero, feature highlights, six sample categories, and three demo prompt examples.
-- Prompt generator with legal category, prompt type, optional facts, language, tone, copy, regenerate, and download actions.
-- Prompt templates library with search, category filter, detail pages, and copy support.
-- Secure sign up and login with hashed passwords.
-- Protected dashboard with searchable history, favorites, and delete actions.
-- Admin-ready prompt template foundation with `isPublished` and `isFeatured` flags.
+Our mission is to build a **foundation for open-source legal technology in Bangladesh and South Asia.**
 
-## Folder Structure
+---
 
-```text
-.
+# 🌍 Why This Project Matters
+
+Legal technology adoption in Bangladesh is still limited. Many legal professionals want to use AI tools but struggle to write structured prompts that produce reliable outputs.
+
+Rahman’s Associate addresses this gap by providing:
+
+* Structured AI prompt generation for legal workflows
+* Bilingual support (English + Bangla)
+* Open-source architecture for legal-tech developers
+* A platform for experimentation and collaboration
+
+This project aims to empower the **next generation of legal-tech innovation in Bangladesh.**
+
+---
+
+# ✨ Key Features
+
+## 🤖 AI Legal Prompt Generator
+
+Generate structured prompts for legal drafting tasks such as:
+
+* Bail applications
+* Legal notices
+* Petition drafting
+* Written statements
+* Contract drafting
+* Legal argument preparation
+* Case research queries
+
+### Example
+
+**User Input**
+
+```
+I want to draft a bail application
+```
+
+**Generated Prompt**
+
+```
+Act as a senior advocate practicing in Bangladesh.
+
+Draft a professional bail application under the applicable provisions of Bangladeshi criminal law. Include case background, legal grounds for bail, relevant statutory references, and a formal prayer clause.
+```
+
+---
+
+## 🌐 Bilingual Language Support
+
+The platform supports:
+
+* English
+* বাংলা (Bangla)
+
+Designed for the **Bangladeshi legal community**.
+
+---
+
+## 🎨 Premium Legal-Tech Interface
+
+The UI includes:
+
+* Modern dark theme
+* Premium legal-tech branding
+* Responsive design
+* Smooth motion effects
+
+---
+
+## 📚 Prompt Template Library
+
+Ready-to-use prompt templates categorized by legal domain:
+
+* Criminal Law
+* Civil Law
+* Family Law
+* Property Law
+* Corporate Law
+* Contract Drafting
+* Legal Notices
+
+---
+
+# 🧠 AI Integration
+
+Rahman’s Associate integrates with the **OpenAI API** to transform simple legal requests into **structured professional prompts** optimized for legal drafting.
+
+Workflow:
+
+User Request → Prompt Generator → AI Processing → Structured Legal Prompt
+
+---
+
+# 🏗️ System Architecture
+
+```
+User Interface (Next.js + Tailwind)
+            │
+            ▼
+Prompt Generation Engine
+            │
+            ▼
+OpenAI API Integration
+            │
+            ▼
+Structured Legal Prompt Output
+            │
+            ▼
+Database Storage (PostgreSQL + Prisma)
+```
+
+---
+
+# 🏗️ Tech Stack
+
+### Frontend
+
+* Next.js
+* TypeScript
+* Tailwind CSS
+* Framer Motion
+
+### Backend
+
+* Node.js
+* Next.js API Routes
+
+### Database
+
+* PostgreSQL
+* Prisma ORM
+
+### AI Integration
+
+* OpenAI API
+
+### Internationalization
+
+* next-intl / i18n
+
+---
+
+# 📂 Project Structure
+
+```
+rahmans-associates
+│
+├── app
+│   ├── dashboard
+│   ├── generator
+│   ├── templates
+│
+├── components
+│   ├── ui
+│   ├── hero
+│   ├── navbar
+│   ├── shimmer
+│
+├── lib
+│   ├── openai
+│   ├── prisma
+│
+├── messages
+│   ├── en.json
+│   ├── bn.json
+│
 ├── prisma
-│   ├── migrations
-│   │   └── 20260309233000_init
-│   ├── schema.prisma
-│   └── seed.ts
-├── public
-├── src
-│   ├── app
-│   │   ├── api
-│   │   ├── dashboard
-│   │   ├── generator
-│   │   ├── login
-│   │   ├── signup
-│   │   ├── templates
-│   │   ├── globals.css
-│   │   ├── layout.tsx
-│   │   └── page.tsx
-│   ├── components
-│   │   ├── auth
-│   │   ├── dashboard
-│   │   ├── generator
-│   │   ├── home
-│   │   ├── templates
-│   │   └── ui
-│   ├── lib
-│   │   ├── auth.ts
-│   │   ├── constants.ts
-│   │   ├── default-templates.ts
-│   │   ├── demo-content.ts
-│   │   ├── openai.ts
-│   │   ├── prisma.ts
-│   │   ├── safety.ts
-│   │   ├── utils.ts
-│   │   └── validations
-│   ├── server
-│   │   └── services
-│   └── types
-├── .env.example
-├── package.json
-└── README.md
+│   └── schema.prisma
+│
+└── public
 ```
 
-## Prisma Schema Overview
+---
 
-The PostgreSQL schema includes:
+# 📦 Installation
 
-- `User`
-- `PromptHistory`
-- `FavoritePrompt`
-- `PromptTemplate`
+Clone the repository
 
-Enums included:
-
-- `UserRole`
-- `LegalCategory`
-- `PromptType`
-- `PromptTone`
-- `PromptLanguage`
-
-The source schema lives in `prisma/schema.prisma`, and the initial SQL migration is included in `prisma/migrations/20260309233000_init/migration.sql`.
-
-## Environment Variables
-
-Copy `.env.example` to `.env` and set:
-
-```bash
-DATABASE_URL=
-OPENAI_API_KEY=
-NEXTAUTH_SECRET=
-NEXTAUTH_URL=
+```
+git clone https://github.com/rahmansadaf46/rahmans-associates.git
 ```
 
-## Setup Instructions
+Enter the project directory
 
-1. Install dependencies:
+```
+cd rahmans-associates
+```
 
-```bash
+Install dependencies
+
+```
 npm install
 ```
 
-2. Create your environment file:
+---
 
-```bash
-cp .env.example .env
+# 🔑 Environment Variables
+
+Create a `.env.local` file and add:
+
+```
+OPENAI_API_KEY=your_openai_api_key
+DATABASE_URL=your_database_url
+NEXTAUTH_SECRET=your_secret_key
+NEXTAUTH_URL=http://localhost:3000
 ```
 
-3. Update `.env` with your PostgreSQL URL, OpenAI API key, and NextAuth values.
+---
 
-4. Apply Prisma migrations:
+# ▶️ Run Development Server
 
-```bash
-npx prisma migrate dev
 ```
-
-5. Seed the prompt templates:
-
-```bash
-npm run db:seed
-```
-
-6. Start the development server:
-
-```bash
 npm run dev
 ```
 
-7. Open `http://localhost:3000`.
+Then open:
 
-## Step-by-Step Run Flow
-
-1. Create a PostgreSQL database.
-2. Add environment variables in `.env`.
-3. Run `npx prisma migrate dev`.
-4. Run `npm run db:seed`.
-5. Run `npm run dev`.
-6. Create an account from `/signup`.
-7. Generate prompts from `/generator`.
-8. Review saved history in `/dashboard`.
-
-## Useful Scripts
-
-```bash
-npm run dev
-npm run lint
-npm run build
-npm run check
-npm run db:push
-npm run db:migrate
-npm run db:seed
+```
+http://localhost:3000
 ```
 
-## OpenAI Integration Notes
+---
 
-- API key is read only from `process.env.OPENAI_API_KEY`.
-- OpenAI calls happen only in `src/app/api/prompts/route.ts`.
-- Prompt generation logic is centralized in `src/server/services/prompt-generation.ts`.
-- The OpenAI system instruction is Bangladesh-specific and explicitly warns against fabricating laws, sections, courts, dates, or citations.
+# 🌐 Language Support
 
-## Security and Safety
+Supported languages:
 
-- Passwords are hashed with `bcryptjs`.
-- Auth uses NextAuth with JWT sessions.
-- Prompt generation is server-side only.
-- Inputs are validated with Zod and sanitized before AI submission.
-- User fields are treated as untrusted case data, not instructions.
-- The UI displays the disclaimer:
-  `This tool is for drafting and research assistance only and does not replace professional legal advice.`
+* English
+* বাংলা
 
-## Seeded Content
+Translation files are located in:
 
-- 21 default Bangladesh legal prompt templates.
-- 6 homepage category highlights.
-- 3 homepage demo prompt examples.
+```
+messages/en.json
+messages/bn.json
+```
 
-## Deployment Notes
+---
 
-For Vercel:
+# 🖼️ Screenshots
 
-1. Set the same environment variables in the Vercel project.
-2. Use a managed PostgreSQL database.
-3. Run `npx prisma migrate deploy` in your production release workflow.
-4. Seed only if you want the default template library in production.
+Screenshots will be added soon:
 
-## Future Improvements
+* Landing page
+* Prompt generator
+* Dashboard
+* Template library
 
-- Add role-based admin template management.
-- Add OAuth providers alongside credentials auth.
-- Add team workspaces and matter-level organization.
-- Add export to DOCX or PDF.
-- Add audit logging and per-user rate limiting.
-- Add RAG-backed legal research references with citation verification.
-# rahmans-associates
+---
+
+# 🧭 Roadmap
+
+Upcoming features:
+
+* AI Legal Document Generator
+* Case Law Research Assistant
+* Advocate Dashboard
+* Law Firm Workspace
+* Prompt Marketplace
+* AI Legal Summarizer
+* Voice-to-Prompt Legal Assistant
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome!
+
+Ways to contribute:
+
+* Add legal prompt templates
+* Improve UI/UX
+* Improve Bangla translations
+* Enhance AI prompt quality
+* Fix bugs and performance issues
+
+### Contribution Steps
+
+1. Fork the repository
+2. Create a branch
+3. Commit your changes
+4. Submit a pull request
+
+---
+
+# 👨‍💻 Maintainer
+
+**Sadaf Rahman**
+Founder — Rahman’s Associate
+
+GitHub:
+[https://github.com/rahmansadaf46](https://github.com/rahmansadaf46)
+
+---
+
+# ⚠️ Disclaimer
+
+This project is intended to assist with **legal drafting and research workflows only**.
+
+It **does not provide legal advice** and should not replace consultation with a licensed legal professional.
+
+---
+
+# 📜 License
+
+MIT License
+
+This project is open-source and free to use under the MIT License.
+
+---
+
+# ⭐ Support the Project
+
+If you find this project useful:
+
+⭐ Star the repository
+🐛 Report issues
+🤝 Contribute improvements
+
+Together we can help build the **future of open-source legal technology in Bangladesh.**

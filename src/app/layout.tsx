@@ -5,11 +5,11 @@ import {
   Noto_Sans_Bengali,
 } from "next/font/google";
 
-import { BRAND_NAME } from "@/lib/constants";
 import { Providers } from "@/components/providers";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { auth } from "@/lib/auth";
+import { getServerI18n } from "@/lib/server-i18n";
 
 import "./globals.css";
 
@@ -30,22 +30,20 @@ const bengali = Noto_Sans_Bengali({
   weight: ["400", "500", "600", "700"],
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXTAUTH_URL ?? "http://localhost:3000"),
-  title: {
-    default: BRAND_NAME,
-    template: `%s | ${BRAND_NAME}`,
-  },
-  description:
-    "Rahman's Associate is a premium legal-tech platform for advocates in Bangladesh to generate structured AI prompts for drafting, research, notices, petitions, agreements, and case preparation.",
-  keywords: [
-    "Bangladesh legal tech",
-    "AI prompt generator",
-    "advocate prompt tool",
-    "Bangla legal drafting",
-    "Next.js Prisma OpenAI",
-  ],
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { messages, t } = await getServerI18n();
+  const keywords = messages.meta.keywords;
+
+  return {
+    metadataBase: new URL(process.env.NEXTAUTH_URL ?? "http://localhost:3000"),
+    title: {
+      default: t("brand.name"),
+      template: `%s | ${t("brand.name")}`,
+    },
+    description: t("meta.rootDescription"),
+    keywords: Array.isArray(keywords) ? keywords : [],
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -53,11 +51,14 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
+  const { locale, messages } = await getServerI18n();
 
   return (
-    <html lang="en">
-      <body className={`${sans.variable} ${serif.variable} ${bengali.variable} antialiased`}>
-        <Providers session={session}>
+    <html lang={locale}>
+      <body
+        className={`${sans.variable} ${serif.variable} ${bengali.variable} antialiased`}
+      >
+        <Providers locale={locale} messages={messages} session={session}>
           <div className="flex min-h-screen flex-col">
             <SiteHeader session={session} />
             <main className="flex-1">{children}</main>

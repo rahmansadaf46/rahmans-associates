@@ -8,61 +8,57 @@ import {
 import { BrandMark } from "@/components/brand/brand-mark";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  BRAND_HERO_LABEL,
-  BRAND_NAME,
-  BRAND_TAGLINE,
-  HOME_CATEGORY_HIGHLIGHTS,
-} from "@/lib/constants";
+import { getHomeCategoryHighlights } from "@/lib/prompt-options";
+import { getServerI18n } from "@/lib/server-i18n";
 
-const highlights = [
-  {
-    label: "Structured prompts",
-    description: "Structures plain requests for legal drafting.",
-    icon: Workflow,
-  },
-  {
-    label: "Bangla + English",
-    description: "Keeps bilingual intake clear and professional.",
-    icon: Languages,
-  },
-  {
-    label: "Advocate workflow",
-    description: "Fits notices, petitions, agreements, and research.",
-    icon: ShieldCheck,
-  },
-];
+export async function BrandHeroPanel() {
+  const { t } = await getServerI18n();
+  const highlights = [
+    {
+      label: t("home.panel.pillars.structured.title"),
+      description: t("home.panel.pillars.structured.description"),
+      icon: Workflow,
+    },
+    {
+      label: t("home.panel.pillars.bilingual.title"),
+      description: t("home.panel.pillars.bilingual.description"),
+      icon: Languages,
+    },
+    {
+      label: t("home.panel.pillars.workflow.title"),
+      description: t("home.panel.pillars.workflow.description"),
+      icon: ShieldCheck,
+    },
+  ];
+  const proofPoints = [
+    {
+      value: getHomeCategoryHighlights(t).length.toString().padStart(2, "0"),
+      label: t("home.panel.proof.practiceAreas"),
+    },
+    {
+      value: "02",
+      label: t("home.panel.proof.workingLanguages"),
+    },
+    {
+      value: highlights.length.toString().padStart(2, "0"),
+      label: t("home.panel.proof.corePillars"),
+    },
+  ];
 
-const proofPoints = [
-  {
-    value: HOME_CATEGORY_HIGHLIGHTS.length.toString().padStart(2, "0"),
-    label: "Practice areas",
-  },
-  {
-    value: "02",
-    label: "Working languages",
-  },
-  {
-    value: highlights.length.toString().padStart(2, "0"),
-    label: "Core pillars",
-  },
-];
-
-export function BrandHeroPanel() {
   return (
-    <Card className="hero-brand-card relative overflow-hidden border-[color:var(--border-strong)] bg-[linear-gradient(160deg,rgba(10,22,38,0.98),rgba(18,40,69,0.92)_58%,rgba(28,58,96,0.82))] text-white">
+    <Card className="hero-brand-card relative overflow-hidden border-[color:var(--border-strong)] bg-[linear-gradient(160deg,rgba(9,13,22,0.98),rgba(15,24,40,0.94)_62%,rgba(30,48,78,0.8))] text-white">
       <CardContent className="relative overflow-hidden p-6 sm:p-8">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_0%,rgba(226,192,120,0.22),transparent_32%),radial-gradient(circle_at_100%_100%,rgba(116,143,183,0.18),transparent_30%)]" />
         <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.45),transparent)]" />
 
         <div className="relative flex flex-wrap items-start justify-between gap-3">
           <Badge className="border-white/15 bg-white/10 text-white/80">
-            {BRAND_HERO_LABEL}
+            {t("brand.heroLabel")}
           </Badge>
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/6 px-3 py-2 text-white/72 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
             <Sparkles className="size-4 text-[color:var(--accent-strong)]" />
             <span className="text-xs uppercase tracking-[0.22em]">
-              Bangladesh counsel workflow
+              {t("home.panel.workflowChip")}
             </span>
           </div>
         </div>
@@ -79,15 +75,13 @@ export function BrandHeroPanel() {
           <div className="space-y-6">
             <div className="space-y-4">
               <p className="text-xs uppercase tracking-[0.24em] text-white/62">
-                Brand signature
+                {t("home.panel.signatureLabel")}
               </p>
               <h2 className="font-[family:var(--font-serif)] text-3xl leading-tight text-white sm:text-4xl">
-                {BRAND_NAME}
+                {t("brand.name")}
               </h2>
               <p className="max-w-xl text-sm leading-6 text-white/74 sm:text-base">
-                {BRAND_TAGLINE}. Premium drafting infrastructure, refined visual
-                clarity, and dependable AI prompt workflows for Bangladesh-based
-                legal practice.
+                {t("brand.tagline")}. {t("home.panel.description")}
               </p>
             </div>
 
