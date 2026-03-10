@@ -13,6 +13,7 @@ export async function SiteHeader({ session }: { session: Session | null }) {
     { href: "/", label: t("nav.home") },
     { href: "/generator", label: t("nav.generator") },
     { href: "/templates", label: t("nav.templates") },
+    { href: "/rahmans-associates", label: t("nav.rahmansAssociates") },
   ];
 
   return (

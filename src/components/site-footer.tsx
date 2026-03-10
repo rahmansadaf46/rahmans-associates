@@ -44,6 +44,12 @@ export async function SiteFooter() {
           >
             {t("footer.dashboard")}
           </Link>
+          <Link
+            href="/rahmans-associates"
+            className="transition hover:text-[color:var(--text-strong)]"
+          >
+            {t("footer.rahmansAssociates")}
+          </Link>
         </div>
       </div>
     </footer>

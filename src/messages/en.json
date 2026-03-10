@@ -1,25 +1,26 @@
 {
   "brand": {
-    "name": "ChamberBondhu",
-    "shortName": "Bondhu",
-    "tagline": "The chamber companion for Bangladeshi advocates",
-    "heroLabel": "Built for Bangladesh chambers"
+    "name": "AinBondhu AI",
+    "shortName": "AinBondhu",
+    "tagline": "By Rahman's Associates",
+    "heroLabel": "Made for Bangladeshi advocates"
   },
   "meta": {
-    "rootDescription": "ChamberBondhu is a practical legal work assistant by Rahman's Associates for advocates in Bangladesh. It helps organize drafting, research, notices, petitions, agreements, and case preparation work in far less time.",
+    "rootDescription": "AinBondhu AI by Rahman's Associates is a bilingual legal work assistant for advocates in Bangladesh. Describe the matter in Bangla or English and get chamber-ready drafting help, structured guidance, and saved work in minutes.",
     "keywords": [
+      "AinBondhu AI",
       "Bangladesh advocate assistant",
       "legal drafting help",
-      "advocate support tool",
       "Bangla legal drafting",
-      "Bangladesh legal help"
+      "Bangladesh legal work assistant"
     ],
     "loginTitle": "Login",
     "signupTitle": "Create Account",
     "generatorTitle": "Drafting Help",
     "dashboardTitle": "Saved Work",
     "templatesTitle": "Ready Formats",
-    "templateNotFoundTitle": "Format Not Found"
+    "templateNotFoundTitle": "Format Not Found",
+    "rahmansAssociatesTitle": "Rahman's Associates"
   },
   "language": {
     "label": "Language",
@@ -30,9 +31,10 @@
     "home": "Home",
     "generator": "Drafting Help",
     "templates": "Ready Formats",
+    "rahmansAssociates": "Rahman's Associates",
     "dashboard": "Saved Work",
     "login": "Login",
-    "createAccount": "Get Started",
+    "createAccount": "Create Account",
     "signOut": "Sign Out"
   },
   "common": {
@@ -46,15 +48,15 @@
   },
   "home": {
     "hero": {
-      "headline": "Finish long chamber drafting work in minutes with ChamberBondhu.",
-      "description": "Built by Rahman's Associates for Bangladeshi advocates, ChamberBondhu helps you prepare notices, petitions, agreements, and daily drafts without technical skills or complicated prompt writing.",
-      "signalLabel": "Done in a Few Minutes",
+      "headline": "Turn hours of chamber work into minutes with AinBondhu AI.",
+      "description": "Built by Rahman's Associates for advocates in Bangladesh, AinBondhu AI helps non-technical lawyers prepare notices, petitions, agreements, summaries, and daily drafting work in Bangla, English, or both.",
+      "signalLabel": "Minutes, not hours",
       "signalLines": {
-        "first": "Notices ready in minutes.",
-        "second": "Bail drafts made faster.",
-        "third": "Daily chamber work, simplified."
+        "first": "Notice draft, ready.",
+        "second": "Bail grounds, organized.",
+        "third": "Daily chamber work, faster."
       },
-      "generateCta": "Get AI Help",
+      "generateCta": "Start Drafting",
       "browseCta": "Browse Ready Formats",
       "reassurance": {
         "plainLanguage": {
@@ -67,26 +69,26 @@
         },
         "structure": {
           "title": "Clearer legal structure",
-          "description": "The AI assistant organizes your request into clear working instructions."
+          "description": "AinBondhu AI turns the matter into a usable first draft, summary, and review points."
         }
       }
     },
     "panel": {
       "workflowChip": "By Rahman's Associates",
-      "signatureLabel": "About the tool",
-      "description": "Rahman's Associates built ChamberBondhu so Bangladeshi advocates can finish notices, petitions, agreements, and daily drafting work with less time and less effort.",
+      "signatureLabel": "Why AinBondhu AI",
+      "description": "A calm, chamber-ready assistant for daily legal drafting, structured guidance, and faster review.",
       "pillars": {
         "structured": {
-          "title": "Clear guidance",
-          "description": "Uses AI to organize plain requests into usable legal instructions."
+          "title": "Drafts with structure",
+          "description": "Turns a plain request into usable drafting, review points, and missing-detail markers."
         },
         "bilingual": {
-          "title": "Bangla + English",
-          "description": "Works smoothly whether the matter is explained in Bangla or English."
+          "title": "Bangla, English, or both",
+          "description": "Accepts Bangla, English, and mixed input without requiring technical prompts."
         },
         "workflow": {
-          "title": "Saves chamber time",
-          "description": "Helps reduce hours of repetitive drafting into a few guided minutes."
+          "title": "Built for real chamber work",
+          "description": "Helps reduce repetitive drafting time while keeping advocate review at the center."
         }
       },
       "proof": {
@@ -162,23 +164,23 @@
   },
   "generator": {
     "pageEyebrow": "{{brand}} Drafting Help",
-    "pageTitle": "Get clear AI-assisted legal drafting help from one plain request.",
-    "pageDescription": "Choose the legal area, the kind of help you need, any optional facts, and the language. The result stays focused on Bangladeshi legal work.",
+    "pageTitle": "Describe the matter once. Get a usable legal draft in minutes.",
+    "pageDescription": "Choose the practice area, type of help, optional facts, and output language. AinBondhu AI prepares a practical first-pass result for Bangladeshi advocates.",
     "pageHelperBadge": "Made for advocates",
-    "pageHelperText": "Write the matter the way you would explain it to a colleague, junior, or clerk. The AI assistant organizes it for you.",
-    "cardTitle": "AI Advocate Assistant",
-    "cardDescription": "Describe the legal task in Bangla or English. The AI assistant will turn it into clear, Bangladesh-focused working text.",
+    "pageHelperText": "Write the matter the way you would explain it in chamber. AinBondhu AI will organize it into clearer drafting support.",
+    "cardTitle": "Your chamber drafting desk",
+    "cardDescription": "Explain the legal task in Bangla, English, or mixed language. AinBondhu AI prepares a practical first draft, review summary, and next-step guidance.",
     "beginnerFriendlyLabel": "Simple steps",
     "beginnerFriendlyText": "No special wording is needed. Describe what you need in normal language and add only the details you already have.",
     "sampleRequestsLabel": "Quick examples",
-    "sampleRequestsTitle": "Use an example if you are not sure how to start.",
-    "sampleRequestsDescription": "Tap any example to fill the request box instantly, then adjust the details for your matter.",
+    "sampleRequestsTitle": "Use one of these examples if you want a faster start.",
+    "sampleRequestsDescription": "Select an example to fill the form, then edit it for your own matter.",
     "accordionTitle": "Work through the drafting form step by step.",
     "accordionDescription": "Open each section, add what you know, and move to the next part when ready.",
     "requestStepLabel": "Step 1",
     "requestLabel": "Legal request",
-    "requestPlaceholder": "Example: I want a bail application for a criminal case.",
-    "requestHelp": "Write in Bangla or English. The AI assistant keeps your legal intent and prepares clearer working text for Bangladesh practice.",
+    "requestPlaceholder": "Example: Draft a bail application for my client and mark missing facts clearly.",
+    "requestHelp": "Write naturally in Bangla or English. AinBondhu AI keeps the legal objective clear and prepares chamber-ready text for Bangladesh practice.",
     "requestSectionDescription": "Say what document, notice, petition, or research help you need. Simple language is enough.",
     "categoryLabel": "Legal category",
     "promptTypeLabel": "Type of help",
@@ -194,26 +196,26 @@
     "lawPlaceholder": "Optional: mention statutes, sections, rules, or ordinances to consider.",
     "outputStepLabel": "Step 3",
     "languageLabel": "Output language",
-    "outputSectionDescription": "Choose the output language and tone. The AI assistant will prepare clear working text for review, copy, or download.",
+    "outputSectionDescription": "Choose the output language and tone. You can ask for Bengali, English, or a bilingual result.",
     "toneLabel": "Tone",
-    "submit": "Prepare Text",
-    "loading": "Preparing...",
+    "submit": "Generate Draft",
+    "loading": "Generating...",
     "shortcutsTitle": "Starting Formats",
     "shortcutsDescription": "Start from a ready format or use one as the base for your work.",
     "openTemplate": "Open format",
-    "outputTitle": "Prepared Text",
-    "outputDescription": "Review, copy, update, or download the prepared text.",
-    "copyPrompt": "Copy Text",
-    "regenerate": "Prepare Again",
-    "regenerateLoading": "Preparing again...",
-    "download": "Download Text",
-    "savedMessage": "This text was saved in your saved work.",
-    "unsavedMessage": "Sign-in state detected, but this text could not be saved.",
+    "outputTitle": "Generated Draft",
+    "outputDescription": "Review the generated result, copy it, download it, or prepare another version.",
+    "copyPrompt": "Copy Draft",
+    "regenerate": "Generate Again",
+    "regenerateLoading": "Generating again...",
+    "download": "Download Draft",
+    "savedMessage": "This draft was saved in your dashboard.",
+    "unsavedMessage": "Sign-in was detected, but this draft could not be saved.",
     "guestLead": "Continue as a guest or",
     "guestTail": "to save your work automatically.",
     "guestLogin": "login",
-    "emptyTitle": "Your prepared text will appear here",
-    "emptyDescription": "After you submit the form, the prepared text will appear here for review, copy, and download.",
+    "emptyTitle": "Your draft will appear here",
+    "emptyDescription": "After you submit, AinBondhu AI will stream the result here so you can review it in real time.",
     "beginnerTips": {
       "first": "Describe the legal task the way you would normally explain it.",
       "second": "Use an example if you are unsure how to start.",
@@ -225,15 +227,24 @@
       "third": "Choose the language and prepare the text."
     },
     "browseTemplates": "Browse Ready Formats",
-    "generatedSaved": "Text prepared and saved.",
-    "generatedSuccess": "Text prepared successfully.",
-    "generateFailed": "Could not prepare the text.",
-    "regenerateFailed": "Could not prepare the text again.",
-    "downloadFilename": "bangladesh-legal-drafting-help.txt",
+    "generatedSaved": "Draft prepared and saved.",
+    "generatedSuccess": "Draft prepared successfully.",
+    "generateFailed": "The draft could not be prepared.",
+    "regenerateFailed": "The draft could not be prepared again.",
+    "readyStatus": "Ready to review",
+    "statusPreparing": "Reviewing your request",
+    "statusDrafting": "Drafting your result",
+    "statusEnhancing": "Adding summary and next steps",
+    "statusSaving": "Saving to your dashboard",
+    "suggestedTitleTitle": "Suggested title",
+    "summaryTitle": "Quick summary",
+    "nextStepsTitle": "Next steps",
+    "tagsTitle": "Useful tags",
+    "downloadFilename": "ainbondhu-ai-draft.txt",
     "suggestions": {
-      "first": "I want a bail application for a criminal case.",
-      "second": "I need help preparing a legal notice for my matter.",
-      "third": "Prepare drafting help for a shareholder agreement for a private company in Bangladesh.",
+      "first": "Draft a bail application for my client and keep all missing facts clearly marked.",
+      "second": "I need a legal notice demanding payment of outstanding money.",
+      "third": "Prepare a bilingual demand notice for cheque dishonour in Bangladesh.",
       "fourth": "Prepare client interview questions for a family maintenance dispute."
     }
   },
@@ -292,10 +303,83 @@
     "browseTemplates": "Browse Ready Formats"
   },
   "footer": {
-    "tagline": "A tool by Rahman's Associates for Bangladeshi advocates",
+    "tagline": "AinBondhu AI by Rahman's Associates",
     "generator": "Drafting Help",
     "templates": "Ready Formats",
-    "dashboard": "Saved Work"
+    "dashboard": "Saved Work",
+    "rahmansAssociates": "Rahman's Associates"
+  },
+  "rahmansAssociates": {
+    "pageEyebrow": "Rahman's Associates",
+    "pageTitle": "Md. Saidur Rahman",
+    "pageDescription": "Owner of Rahman's Associates, long-serving public officer, law enthusiast, and current legal learner preparing to serve Bangladesh through law.",
+    "heroLabel": "Chamber profile",
+    "portraitLabel": "Profile placeholder",
+    "portraitCaption": "Portrait placeholder for Md. Saidur Rahman",
+    "profileTitle": "Profile summary",
+    "profileText": "Md. Saidur Rahman is the owner of Rahman's Associates. He has been studying law since 2016 and has remained deeply committed to the law sector of Bangladesh from the core. After more than 35 years of service in Government Non-Formal Education, he now brings his knowledge, discipline, and public-service mindset to legal work.",
+    "stats": {
+      "studyValue": "Since 2016",
+      "studyLabel": "Law study journey",
+      "serviceValue": "35+ Years",
+      "serviceLabel": "Public-service experience",
+      "retirementValue": "Deputy Director",
+      "retirementLabel": "Retired from Bureau of Non-Formal Education",
+      "goalValue": "Bar-at-Law",
+      "goalLabel": "Current preparation"
+    },
+    "education": {
+      "title": "Education",
+      "intro": "His academic background combines statistics and legal study, shaping a careful and analytical approach to legal work.",
+      "bscDegree": "BSc in Statistics",
+      "bscInstitution": "Jagannath University",
+      "mscDegree": "MSc in Statistics",
+      "mscInstitution": "Jagannath University",
+      "llbDegree": "LLB",
+      "llbInstitution": "National University"
+    },
+    "timeline": {
+      "title": "Career timeline",
+      "intro": "A steady journey shaped by public service, discipline, and long-standing interest in law.",
+      "studyPeriod": "2016 onward",
+      "studyTitle": "Formal legal study",
+      "studyDescription": "Began studying law and continued building a grounded understanding of Bangladeshi law from its core.",
+      "servicePeriod": "35+ years",
+      "serviceTitle": "Government service in Non-Formal Education",
+      "serviceDescription": "Served in the Government sector in Non-Formal Education for more than 35 years with sustained public-service responsibility.",
+      "retirementPeriod": "Retired service",
+      "retirementTitle": "Deputy Director, Bureau of Non-Formal Education, Bangladesh",
+      "retirementDescription": "Retired as Deputy Director and now stands ready to contribute his knowledge to the law sector of Bangladesh.",
+      "currentPeriod": "Current goal",
+      "currentTitle": "Preparing for Bar-at-Law",
+      "currentDescription": "He is preparing himself for Bar-at-Law in order to serve the country with stronger legal capability."
+    },
+    "service": {
+      "title": "Public-service background",
+      "description": "His long government career reflects administrative experience, patience, responsibility, and a citizen-focused mindset that now informs his legal journey."
+    },
+    "journey": {
+      "title": "Legal journey",
+      "description": "He has remained a law enthusiast throughout his career. Since 2016, he has continued legal study with a clear purpose: to contribute meaningfully to the law sector of Bangladesh."
+    },
+    "philosophy": {
+      "title": "Core philosophy",
+      "quote": "Make the advocate work in a smart way, not in a hard way.",
+      "explanation": "That philosophy also guides AinBondhu AI: practical support, faster drafting, clearer structure, and respect for the advocate's own judgment."
+    },
+    "bilingual": {
+      "title": "Bilingual presentation",
+      "description": "Chamber work in Bangladesh often moves between Bangla and English. AinBondhu AI follows that reality so legal professionals can work in the language that fits the matter.",
+      "englishQuoteLabel": "English",
+      "banglaQuoteLabel": "Bangla",
+      "banglaQuote": "আইনজীবীর কাজ কঠিনভাবে নয়, বুদ্ধিমত্তার সঙ্গে এগিয়ে নিতে হবে।"
+    },
+    "cta": {
+      "title": "Continue with AinBondhu AI",
+      "description": "Use the drafting assistant to turn routine chamber work into faster, more organized legal output.",
+      "primary": "Open Drafting Help",
+      "secondary": "Browse Ready Formats"
+    }
   },
   "validation": {
     "auth": {

@@ -7,8 +7,11 @@ import { useTranslations } from "@/components/i18n-provider";
 import { CopyButton } from "@/components/ui/copy-button";
 import { Button, buttonStyles } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import type { GenerationInsights } from "@/lib/ai-contract";
 
 type PromptOutputPanelProps = {
+  generatedInsights: GenerationInsights | null;
+  generationStatus: string;
   generatedPrompt: string;
   isLoading: boolean;
   isAuthenticated: boolean;
@@ -18,6 +21,8 @@ type PromptOutputPanelProps = {
 };
 
 export function PromptOutputPanel({
+  generatedInsights,
+  generationStatus,
   generatedPrompt,
   isLoading,
   isAuthenticated,
@@ -26,6 +31,7 @@ export function PromptOutputPanel({
   onRegenerate,
 }: PromptOutputPanelProps) {
   const t = useTranslations();
+  const hasOutput = Boolean(generatedPrompt) || isLoading;
   const emptyTips = [
     t("generator.emptyTips.first"),
     t("generator.emptyTips.second"),
@@ -49,8 +55,68 @@ export function PromptOutputPanel({
       </CardHeader>
 
       <CardContent className="flex h-full flex-col gap-6 p-6 sm:p-8">
-        {generatedPrompt ? (
+        {hasOutput ? (
           <>
+            <div className="rounded-[22px] border border-[color:var(--border)] bg-white/[0.03] px-4 py-3 text-sm text-[color:var(--muted-strong)]">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-white/60">
+                <span className="size-2 rounded-full bg-[color:var(--accent-strong)]" />
+                {isLoading ? generationStatus || t("generator.loading") : t("generator.readyStatus")}
+              </span>
+            </div>
+
+            {generatedInsights ? (
+              <div className="grid gap-4 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+                <div className="space-y-4">
+                  <div className="rounded-[24px] border border-[color:var(--border)] bg-white/[0.03] p-5">
+                    <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-white/50">
+                      {t("generator.suggestedTitleTitle")}
+                    </p>
+                    <p className="mt-3 font-[family:var(--font-serif)] text-2xl text-[color:var(--text-strong)]">
+                      {generatedInsights.suggestedTitle}
+                    </p>
+                  </div>
+
+                  <div className="rounded-[24px] border border-[color:var(--border)] bg-white/[0.03] p-5">
+                    <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-white/50">
+                      {t("generator.summaryTitle")}
+                    </p>
+                    <p className="mt-3 text-sm leading-7 text-[color:var(--muted-strong)]">
+                      {generatedInsights.summary}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="rounded-[24px] border border-[color:var(--border)] bg-white/[0.03] p-5">
+                    <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-white/50">
+                      {t("generator.nextStepsTitle")}
+                    </p>
+                    <ul className="mt-3 space-y-2 text-sm leading-7 text-[color:var(--muted-strong)]">
+                      {generatedInsights.nextSteps.map((step) => (
+                        <li key={step}>{step}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="rounded-[24px] border border-[color:var(--border)] bg-white/[0.03] p-5">
+                    <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-white/50">
+                      {t("generator.tagsTitle")}
+                    </p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {generatedInsights.suggestedTags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs font-medium text-[color:var(--muted-strong)]"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+
             <div className="overflow-hidden rounded-[28px] border border-[color:var(--border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01)),var(--brand-panel-strong)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
               <div className="flex items-center gap-2 border-b border-white/8 px-4 py-3">
                 <span className="size-2.5 rounded-full bg-white/25" />
@@ -59,7 +125,10 @@ export function PromptOutputPanel({
               </div>
               <div className="max-h-[38rem] overflow-auto p-5 sm:p-6">
                 <pre className="whitespace-pre-wrap text-sm leading-7 text-white/90">
-                  {generatedPrompt}
+                  {generatedPrompt || generationStatus}
+                  {isLoading ? (
+                    <span className="ml-1 inline-block h-[1.05em] w-px animate-pulse bg-[color:var(--accent-strong)] align-[-0.1em]" />
+                  ) : null}
                 </pre>
               </div>
             </div>
@@ -72,11 +141,17 @@ export function PromptOutputPanel({
                 onClick={onRegenerate}
                 loading={isLoading}
                 loadingText={t("generator.regenerateLoading")}
+                disabled={!generatedPrompt}
               >
                 <RotateCcw className="size-4" />
                 {t("generator.regenerate")}
               </Button>
-              <Button variant="secondary" size="sm" onClick={onDownload}>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={onDownload}
+                disabled={!generatedPrompt}
+              >
                 <Download className="size-4" />
                 {t("generator.download")}
               </Button>

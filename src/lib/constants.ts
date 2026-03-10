@@ -11,10 +11,10 @@ type Option<T extends string> = {
   description: string;
 };
 
-export const BRAND_NAME = "ChamberBondhu";
-export const BRAND_SHORT_NAME = "Bondhu";
-export const BRAND_TAGLINE = "The chamber companion for Bangladeshi advocates";
-export const BRAND_HERO_LABEL = "Built for Bangladesh chambers";
+export const BRAND_NAME = "AinBondhu AI";
+export const BRAND_SHORT_NAME = "AinBondhu";
+export const BRAND_TAGLINE = "By Rahman's Associates";
+export const BRAND_HERO_LABEL = "Made for Bangladeshi advocates";
 
 export const DISCLAIMER_TEXT =
   "This tool is for drafting and research assistance only and does not replace professional legal advice.";

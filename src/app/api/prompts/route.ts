@@ -1,15 +1,28 @@
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
+import type { PromptStreamEvent } from "@/lib/ai-contract";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getServerI18n } from "@/lib/server-i18n";
 import { getPromptRequestSchema } from "@/lib/validations/prompt";
 import {
   AIServiceError,
-  generateLegalPrompt,
+  generatePromptInsights,
+  streamLegalPrompt,
   toPromptHistoryCreateInput,
 } from "@/server/services/prompt-generation";
+
+const streamHeaders = {
+  "Cache-Control": "no-cache, no-transform",
+  Connection: "keep-alive",
+  "Content-Type": "application/x-ndjson; charset=utf-8",
+  "X-Accel-Buffering": "no",
+} as const;
+
+function encodeEvent(event: PromptStreamEvent) {
+  return `${JSON.stringify(event)}\n`;
+}
 
 export async function POST(request: Request) {
   try {
@@ -27,34 +40,79 @@ export async function POST(request: Request) {
       );
     }
 
-    const { generatedPrompt, payload } = await generateLegalPrompt(parsed.data);
+    const encoder = new TextEncoder();
+    const stream = new ReadableStream<Uint8Array>({
+      async start(controller) {
+        const send = (event: PromptStreamEvent) => {
+          controller.enqueue(encoder.encode(encodeEvent(event)));
+        };
 
-    let savedToHistory = false;
+        try {
+          send({ type: "status", stage: "preparing" });
+          send({ type: "status", stage: "drafting" });
 
-    if (session?.user?.id) {
-      await prisma.promptHistory.create({
-        data: toPromptHistoryCreateInput(session.user.id, payload, generatedPrompt),
-      });
+          const { generatedPrompt, payload } = await streamLegalPrompt(parsed.data, {
+            onChunk(chunk) {
+              send({ type: "chunk", text: chunk });
+            },
+          });
 
-      savedToHistory = true;
-      revalidatePath("/dashboard");
-    }
+          send({ type: "status", stage: "enhancing" });
+          const insights = await generatePromptInsights(
+            generatedPrompt,
+            payload.desiredLanguage,
+          );
 
-    return NextResponse.json({
-      prompt: generatedPrompt,
-      savedToHistory,
+          let savedToHistory = false;
+
+          if (session?.user?.id) {
+            send({ type: "status", stage: "saving" });
+
+            try {
+              await prisma.promptHistory.create({
+                data: toPromptHistoryCreateInput(
+                  session.user.id,
+                  payload,
+                  generatedPrompt,
+                ),
+              });
+
+              savedToHistory = true;
+              revalidatePath("/dashboard");
+            } catch {
+              savedToHistory = false;
+            }
+          }
+
+          send({
+            type: "complete",
+            prompt: generatedPrompt,
+            savedToHistory,
+            insights,
+          });
+        } catch (error) {
+          const normalized =
+            error instanceof AIServiceError
+              ? error
+              : new AIServiceError(
+                  (await getServerI18n()).t("validation.api.promptUnexpected"),
+                );
+
+          send({
+            type: "error",
+            message: normalized.message,
+            code: normalized.code,
+          });
+        } finally {
+          controller.close();
+        }
+      },
     });
-  } catch (error) {
-    if (error instanceof AIServiceError) {
-      return NextResponse.json(
-        {
-          error: error.message,
-          code: error.code,
-        },
-        { status: error.statusCode },
-      );
-    }
 
+    return new Response(stream, {
+      headers: streamHeaders,
+    });
+  } catch {
     return NextResponse.json(
       {
         error: (await getServerI18n()).t("validation.api.promptUnexpected"),

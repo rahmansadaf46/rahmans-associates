@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { type ReactNode, useEffect, useState, useTransition } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -39,13 +39,12 @@ import {
   promptFormDefaults,
   type PromptRequestValues,
 } from "@/lib/validations/prompt";
+import type { GenerationInsights, PromptStreamEvent } from "@/lib/ai-contract";
 import { cn } from "@/lib/utils";
 import type { TemplateRecord } from "@/server/services/template-service";
 
-type GeneratorResponse = {
+type GeneratorErrorResponse = {
   error?: string;
-  prompt?: string;
-  savedToHistory?: boolean;
 };
 
 type GeneratorSectionId = "request" | "facts" | "output";
@@ -173,11 +172,15 @@ export function PromptGeneratorForm({
   const { locale } = useI18n();
   const searchParams = useSearchParams();
   const { data: session } = useSession();
-  const [isPending, startTransition] = useTransition();
+  const [isGenerating, setIsGenerating] = useState(false);
   const [generatedPrompt, setGeneratedPrompt] = useState("");
   const [savedToHistory, setSavedToHistory] = useState(false);
   const [lastPayload, setLastPayload] = useState<PromptRequestValues | null>(null);
   const [activeSection, setActiveSection] = useState<GeneratorSectionId>("request");
+  const [generationStatus, setGenerationStatus] = useState("");
+  const [generationInsights, setGenerationInsights] = useState<GenerationInsights | null>(
+    null,
+  );
   const legalCategoryLabels = getLegalCategoryLabels(t);
   const legalCategoryOptions = getLegalCategoryOptions(t);
   const promptLanguageOptions = getPromptLanguageOptions(t);
@@ -185,6 +188,12 @@ export function PromptGeneratorForm({
   const promptTypeOptions = getPromptTypeOptions(t);
   const sampleRequestSuggestions = getSampleRequestSuggestions(t);
   const localizedFeaturedTemplates = localizeTemplateRecords(featuredTemplates, locale);
+  const generationStageMessages = {
+    preparing: t("generator.statusPreparing"),
+    drafting: t("generator.statusDrafting"),
+    enhancing: t("generator.statusEnhancing"),
+    saving: t("generator.statusSaving"),
+  } as const;
 
   const form = useForm<PromptRequestValues>({
     resolver: zodResolver(getPromptRequestSchema(t)),
@@ -294,6 +303,14 @@ export function PromptGeneratorForm({
   }, [form, searchParams]);
 
   async function runGeneration(values: PromptRequestValues) {
+    setGeneratedPrompt("");
+    setGenerationInsights(null);
+    setSavedToHistory(false);
+    setGenerationStatus(generationStageMessages.preparing);
+    setLastPayload(values);
+    setActiveSection("output");
+    setIsGenerating(true);
+
     const response = await fetch("/api/prompts", {
       method: "POST",
       headers: {
@@ -302,32 +319,106 @@ export function PromptGeneratorForm({
       body: JSON.stringify(values),
     });
 
-    const payload = (await response.json()) as GeneratorResponse;
-
-    if (!response.ok || !payload.prompt) {
-      throw new Error(payload.error ?? t("generator.generateFailed"));
+    if (!response.ok || !response.body) {
+      const payload = (await response.json().catch(() => null)) as GeneratorErrorResponse | null;
+      setGenerationStatus("");
+      setIsGenerating(false);
+      throw new Error(payload?.error ?? t("generator.generateFailed"));
     }
 
-    setGeneratedPrompt(payload.prompt);
-    setSavedToHistory(Boolean(payload.savedToHistory));
-    setLastPayload(values);
-    setActiveSection("output");
-    toast.success(
-      payload.savedToHistory
-        ? t("generator.generatedSaved")
-        : t("generator.generatedSuccess"),
-    );
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+    let nextPrompt = "";
+    let didComplete = false;
+
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+
+        if (done) {
+          break;
+        }
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() ?? "";
+
+        for (const line of lines) {
+          if (!line.trim()) {
+            continue;
+          }
+
+          const event = JSON.parse(line) as PromptStreamEvent;
+
+          if (event.type === "status") {
+            setGenerationStatus(generationStageMessages[event.stage]);
+            continue;
+          }
+
+          if (event.type === "chunk") {
+            nextPrompt += event.text;
+            setGeneratedPrompt(nextPrompt);
+            continue;
+          }
+
+          if (event.type === "error") {
+            throw new Error(event.message || t("generator.generateFailed"));
+          }
+
+          if (event.type === "complete") {
+            didComplete = true;
+            nextPrompt = event.prompt;
+            setGeneratedPrompt(event.prompt);
+            setSavedToHistory(Boolean(event.savedToHistory));
+            setGenerationInsights(event.insights);
+            setGenerationStatus("");
+            toast.success(
+              event.savedToHistory
+                ? t("generator.generatedSaved")
+                : t("generator.generatedSuccess"),
+            );
+          }
+        }
+      }
+
+      if (buffer.trim()) {
+        const event = JSON.parse(buffer) as PromptStreamEvent;
+
+        if (event.type === "complete") {
+          didComplete = true;
+          nextPrompt = event.prompt;
+          setGeneratedPrompt(event.prompt);
+          setSavedToHistory(Boolean(event.savedToHistory));
+          setGenerationInsights(event.insights);
+          setGenerationStatus("");
+          toast.success(
+            event.savedToHistory
+              ? t("generator.generatedSaved")
+              : t("generator.generatedSuccess"),
+          );
+        } else if (event.type === "error") {
+          throw new Error(event.message || t("generator.generateFailed"));
+        }
+      }
+
+      if (!didComplete) {
+        throw new Error(t("generator.generateFailed"));
+      }
+    } finally {
+      setIsGenerating(false);
+    }
   }
 
   const handleSubmit = form.handleSubmit(
-    (values) => {
-      startTransition(async () => {
-        try {
-          await runGeneration(values);
-        } catch (error) {
-          toast.error(error instanceof Error ? error.message : t("generator.generateFailed"));
-        }
-      });
+    async (values) => {
+      try {
+        await runGeneration(values);
+      } catch (error) {
+        toast.error(error instanceof Error ? error.message : t("generator.generateFailed"));
+        setGenerationStatus("");
+        setIsGenerating(false);
+      }
     },
     (errors) => {
       const [firstErrorField] = Object.keys(errors) as Array<keyof PromptRequestValues>;
@@ -355,14 +446,12 @@ export function PromptGeneratorForm({
   function handleRegenerate() {
     const values = lastPayload ?? form.getValues();
 
-    startTransition(async () => {
-      try {
-        await runGeneration(values);
-      } catch (error) {
-        toast.error(
-          error instanceof Error ? error.message : t("generator.regenerateFailed"),
-        );
-      }
+    void runGeneration(values).catch((error) => {
+      toast.error(
+        error instanceof Error ? error.message : t("generator.regenerateFailed"),
+      );
+      setGenerationStatus("");
+      setIsGenerating(false);
     });
   }
 
@@ -421,7 +510,7 @@ export function PromptGeneratorForm({
           </CardContent>
         </Card>
 
-        <div >
+        <div>
           <Card className="overflow-hidden border-[color:var(--border-strong)]">
             <CardHeader className="border-b border-[color:var(--border)] p-6 sm:p-8">
               <div className="flex items-start gap-4">
@@ -478,8 +567,6 @@ export function PromptGeneratorForm({
               </div>
             </CardContent>
           </Card>
-
-
         </div>
 
         <Card className="overflow-hidden border-[color:var(--border-strong)] bg-[linear-gradient(180deg,rgba(11,15,24,0.98),rgba(11,15,24,0.92)_18%,rgba(8,12,20,0.94))]">
@@ -693,8 +780,8 @@ export function PromptGeneratorForm({
                 <Button
                   type="submit"
                   className="mt-4 w-full py-4 text-base"
-                  loading={isPending}
-                  loadingText={t("generator.loading")}
+                  loading={isGenerating}
+                  loadingText={generationStatus || t("generator.loading")}
                 >
                   {t("generator.submit")}
                 </Button>
@@ -702,14 +789,14 @@ export function PromptGeneratorForm({
             </form>
           </CardContent>
         </Card>
-
-
       </div>
 
       <div className="2xl:sticky 2xl:top-28">
         <PromptOutputPanel
+          generatedInsights={generationInsights}
+          generationStatus={generationStatus}
           generatedPrompt={generatedPrompt}
-          isLoading={isPending}
+          isLoading={isGenerating}
           isAuthenticated={Boolean(session?.user)}
           savedToHistory={savedToHistory}
           onDownload={handleDownload}
