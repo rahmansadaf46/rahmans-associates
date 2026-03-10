@@ -11,10 +11,10 @@ type Option<T extends string> = {
   description: string;
 };
 
-export const BRAND_NAME = "Rahman’s Associate";
-export const BRAND_SHORT_NAME = "Rahman’s";
-export const BRAND_TAGLINE = "Premium legal intelligence for Bangladesh counsel";
-export const BRAND_HERO_LABEL = "Rahman’s Associate Signature System";
+export const BRAND_NAME = "ChamberBondhu";
+export const BRAND_SHORT_NAME = "Bondhu";
+export const BRAND_TAGLINE = "The chamber companion for Bangladeshi advocates";
+export const BRAND_HERO_LABEL = "Built for Bangladesh chambers";
 
 export const DISCLAIMER_TEXT =
   "This tool is for drafting and research assistance only and does not replace professional legal advice.";
@@ -213,7 +213,7 @@ export const HOME_CATEGORY_HIGHLIGHTS = [
 
 export const SAMPLE_REQUEST_SUGGESTIONS = [
   "I want a bail application for a criminal case.",
-  "আমার একটি লিগ্যাল নোটিশের জন্য স্ট্রাকচার্ড AI prompt দরকার।",
+  "আমার একটি আইনি নোটিশের জন্য গুছানো AI খসড়া নির্দেশনা দরকার।",
   "Draft a shareholder agreement prompt for a private company in Bangladesh.",
   "Prepare client interview questions for a family maintenance dispute.",
 ];
